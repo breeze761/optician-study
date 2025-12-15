@@ -1,21 +1,13 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { CheckCircle, Globe, BookOpen, Award, Clock, Users } from 'lucide-react'
 
+// Stripe Payment Links
+const STRIPE_MONTHLY_LINK = 'https://buy.stripe.com/aFa7sMeYBamF85q2PC9Zm02'
+const STRIPE_YEARLY_LINK = 'https://buy.stripe.com/3cI6oI3fTamF5Xi61O9Zm03'
+
 export default function SubscribePage() {
-  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('yearly')
-
-  // Stripe Payment Links
-  const STRIPE_MONTHLY_LINK = 'https://buy.stripe.com/aFa7sMeYBamF85q2PC9Zm02'
-  const STRIPE_YEARLY_LINK = 'https://buy.stripe.com/3cI6oI3fTamF5Xi61O9Zm03'
-
-  const handleSubscribe = () => {
-    window.location.href = billingPeriod === 'monthly' ? STRIPE_MONTHLY_LINK : STRIPE_YEARLY_LINK
-  }
 
   return (
     <>
@@ -46,110 +38,107 @@ export default function SubscribePage() {
           </div>
         </section>
 
-        {/* Pricing Card */}
+        {/* Pricing Cards */}
         <section className="py-16 -mt-10">
-          <div className="max-w-md mx-auto px-4">
-            {/* Billing Toggle */}
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <button
-                onClick={() => setBillingPeriod('monthly')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  billingPeriod === 'monthly'
-                    ? 'bg-white text-blue-600 shadow-md'
-                    : 'text-white/80 hover:text-white'
-                }`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setBillingPeriod('yearly')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 ${
-                  billingPeriod === 'yearly'
-                    ? 'bg-white text-blue-600 shadow-md'
-                    : 'text-white/80 hover:text-white'
-                }`}
-              >
-                Yearly
-                <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
-                  Save 34%
-                </span>
-              </button>
-            </div>
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Monthly Plan */}
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                <div className="bg-gray-100 p-6 text-center">
+                  <span className="inline-block bg-gray-600 text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                    Monthly
+                  </span>
+                  <div className="text-4xl font-bold text-gray-900 mb-2">
+                    $9.95<span className="text-xl font-normal text-gray-600">/mo</span>
+                  </div>
+                  <p className="text-gray-600">Cancel anytime. No commitment.</p>
+                </div>
 
-            <div className="bg-white rounded-2xl shadow-xl border-2 border-blue-600 overflow-hidden">
-              {/* Header */}
-              <div className="bg-blue-600 text-white p-6 text-center">
-                {billingPeriod === 'yearly' && (
+                <div className="p-6">
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">All 52 chapters unlocked</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">325+ comprehensive lessons</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">500+ practice quiz questions</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">Progress tracking</span>
+                    </li>
+                  </ul>
+
+                  <a
+                    href={STRIPE_MONTHLY_LINK}
+                    className="block w-full bg-gray-800 text-white py-4 rounded-lg font-semibold text-lg hover:bg-gray-900 transition-colors text-center"
+                  >
+                    Get Monthly Access
+                  </a>
+                </div>
+              </div>
+
+              {/* Yearly Plan - Featured */}
+              <div className="bg-white rounded-2xl shadow-xl border-2 border-blue-600 overflow-hidden relative">
+                <div className="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                  BEST VALUE
+                </div>
+                <div className="bg-blue-600 text-white p-6 text-center">
                   <span className="inline-block bg-green-500 px-4 py-1 rounded-full text-sm font-semibold mb-4">
-                    Best Value - Save $40/year
+                    Save $40/year
                   </span>
-                )}
-                {billingPeriod === 'monthly' && (
-                  <span className="inline-block bg-blue-500 px-4 py-1 rounded-full text-sm font-medium mb-4">
-                    Full Access
-                  </span>
-                )}
+                  <div className="text-4xl font-bold mb-2">
+                    $79<span className="text-xl font-normal">/year</span>
+                  </div>
+                  <p className="text-blue-100">Just $6.58/month • Billed annually</p>
+                </div>
 
-                {billingPeriod === 'yearly' ? (
-                  <>
-                    <div className="text-5xl font-bold mb-2">
-                      $79<span className="text-2xl font-normal">/year</span>
-                    </div>
-                    <p className="text-blue-100">
-                      Just $6.58/month • Billed annually
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-5xl font-bold mb-2">
-                      $9.95<span className="text-2xl font-normal">/mo</span>
-                    </div>
-                    <p className="text-blue-100">Cancel anytime. No commitment.</p>
-                  </>
-                )}
-              </div>
+                <div className="p-6">
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">All 52 chapters unlocked</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">325+ comprehensive lessons</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">500+ practice quiz questions</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">Progress tracking</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">Certificate of completion</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700">Available in 100+ languages</span>
+                    </li>
+                  </ul>
 
-              {/* Features */}
-              <div className="p-6">
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">All 52 chapters unlocked</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">325+ comprehensive lessons</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">500+ practice quiz questions</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">Chapter tests & progress tracking</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">Certificate of completion</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">Available in 100+ languages</span>
-                  </li>
-                </ul>
-
-                <button
-                  onClick={handleSubscribe}
-                  className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors"
-                >
-                  {billingPeriod === 'yearly' ? 'Get Yearly Access' : 'Start Learning Now'}
-                </button>
-
-                <p className="text-center text-sm text-gray-500 mt-4">
-                  Secure payment powered by Stripe
-                </p>
+                  <a
+                    href={STRIPE_YEARLY_LINK}
+                    className="block w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors text-center"
+                  >
+                    Get Yearly Access
+                  </a>
+                </div>
               </div>
             </div>
+
+            <p className="text-center text-sm text-gray-500 mt-6">
+              Secure payment powered by Stripe
+            </p>
           </div>
         </section>
 
@@ -289,24 +278,18 @@ export default function SubscribePage() {
               Join thousands of opticians worldwide preparing for their certification exams.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={() => {
-                  setBillingPeriod('yearly')
-                  handleSubscribe()
-                }}
+              <a
+                href={STRIPE_YEARLY_LINK}
                 className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
               >
                 Get Yearly Access - $79/year
-              </button>
-              <button
-                onClick={() => {
-                  setBillingPeriod('monthly')
-                  handleSubscribe()
-                }}
+              </a>
+              <a
+                href={STRIPE_MONTHLY_LINK}
                 className="inline-flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-400 transition-colors"
               >
                 Or $9.95/month
-              </button>
+              </a>
             </div>
           </div>
         </section>
