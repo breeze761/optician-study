@@ -3,13 +3,16 @@
 import { useState } from 'react'
 import { Quiz as QuizType, QuizQuestion } from '@/types'
 import { CheckCircle, XCircle, ArrowRight, RotateCcw, Award } from 'lucide-react'
+import Link from 'next/link'
 
 interface QuizProps {
   quiz: QuizType
   onComplete?: (score: number, passed: boolean) => void
+  nextLessonUrl?: string | null
+  nextLessonTitle?: string | null
 }
 
-export default function Quiz({ quiz, onComplete }: QuizProps) {
+export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle }: QuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [showResult, setShowResult] = useState(false)
@@ -119,11 +122,23 @@ export default function Quiz({ quiz, onComplete }: QuizProps) {
             Retry Quiz
           </button>
 
-          {passed && (
-            <button className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
+          {passed && nextLessonUrl && (
+            <Link
+              href={nextLessonUrl}
+              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+            >
               Next Lesson
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
+          )}
+          {passed && !nextLessonUrl && (
+            <Link
+              href="/learn"
+              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+            >
+              Chapter Complete!
+              <CheckCircle className="w-4 h-4" />
+            </Link>
           )}
         </div>
       </div>

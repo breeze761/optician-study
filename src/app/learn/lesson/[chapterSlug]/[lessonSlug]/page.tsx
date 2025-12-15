@@ -149,7 +149,12 @@ export default function LessonPage({ params }: PageProps) {
                 </div>
               </>
             ) : (
-              <Quiz quiz={lesson.quiz} onComplete={handleQuizComplete} />
+              <Quiz
+                quiz={lesson.quiz}
+                onComplete={handleQuizComplete}
+                nextLessonUrl={nextLesson ? `/learn/lesson/${chapter.slug}/${nextLesson.slug}` : null}
+                nextLessonTitle={nextLesson?.title || null}
+              />
             )}
 
             {/* Navigation */}
