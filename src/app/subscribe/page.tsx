@@ -25,7 +25,7 @@ export default function SubscribePage() {
               Unlock Your Full Optician Training
             </h1>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Get complete access to all 13 chapters, 60+ lessons, and 500+ practice questions
+              Get complete access to all 52 chapters, 325+ lessons, and 500+ practice questions
               to ace your ABO and NCLE certification exams.
             </p>
             <div className="flex items-center justify-center gap-4 text-blue-200">
@@ -62,11 +62,11 @@ export default function SubscribePage() {
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">All 13 chapters unlocked</span>
+                    <span className="text-gray-700">All 52 chapters unlocked</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">50+ comprehensive lessons</span>
+                    <span className="text-gray-700">325+ comprehensive lessons</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />

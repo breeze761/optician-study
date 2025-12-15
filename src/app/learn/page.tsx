@@ -127,7 +127,7 @@ export default function LearnPage() {
                         <Lock className="w-8 h-8 mx-auto mb-2 text-gray-300" />
                         <p>This chapter is coming soon with premium membership.</p>
                         <Link
-                          href="/pricing"
+                          href="/subscribe"
                           className="text-blue-600 hover:underline font-medium"
                         >
                           View pricing

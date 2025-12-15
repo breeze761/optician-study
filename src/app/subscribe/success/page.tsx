@@ -22,7 +22,7 @@ export default function SubscribeSuccessPage() {
             Welcome to OpticianStudy!
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Your subscription is now active. You have full access to all 13 chapters
+            Your subscription is now active. You have full access to all 52 chapters
             and 500+ quiz questions to prepare for your ABO and NCLE certification exams.
           </p>
 
@@ -32,11 +32,11 @@ export default function SubscribeSuccessPage() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-700">All 13 chapters of comprehensive optician training</span>
+                <span className="text-gray-700">All 52 chapters of comprehensive optician training</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-700">50+ lessons covering ABO & NCLE exam content</span>
+                <span className="text-gray-700">325+ lessons covering ABO & NCLE exam content</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
