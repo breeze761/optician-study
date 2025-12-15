@@ -1,16 +1,20 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { CheckCircle, Globe, BookOpen, Award, Clock, Users } from 'lucide-react'
 
 export default function SubscribePage() {
-  // Stripe Payment Link - Replace with your actual link once created
-  const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/aFa7sMeYBamF85q2PC9Zm02'
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('yearly')
+
+  // Stripe Payment Links
+  const STRIPE_MONTHLY_LINK = 'https://buy.stripe.com/aFa7sMeYBamF85q2PC9Zm02'
+  const STRIPE_YEARLY_LINK = 'https://buy.stripe.com/3cI6oI3fTamF5Xi61O9Zm03'
 
   const handleSubscribe = () => {
-    window.location.href = STRIPE_PAYMENT_LINK
+    window.location.href = billingPeriod === 'monthly' ? STRIPE_MONTHLY_LINK : STRIPE_YEARLY_LINK
   }
 
   return (
@@ -45,16 +49,64 @@ export default function SubscribePage() {
         {/* Pricing Card */}
         <section className="py-16 -mt-10">
           <div className="max-w-md mx-auto px-4">
+            {/* Billing Toggle */}
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  billingPeriod === 'monthly'
+                    ? 'bg-white text-blue-600 shadow-md'
+                    : 'text-white/80 hover:text-white'
+                }`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod('yearly')}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 ${
+                  billingPeriod === 'yearly'
+                    ? 'bg-white text-blue-600 shadow-md'
+                    : 'text-white/80 hover:text-white'
+                }`}
+              >
+                Yearly
+                <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
+                  Save 34%
+                </span>
+              </button>
+            </div>
+
             <div className="bg-white rounded-2xl shadow-xl border-2 border-blue-600 overflow-hidden">
               {/* Header */}
               <div className="bg-blue-600 text-white p-6 text-center">
-                <span className="inline-block bg-blue-500 px-4 py-1 rounded-full text-sm font-medium mb-4">
-                  Full Access
-                </span>
-                <div className="text-5xl font-bold mb-2">
-                  $9.95<span className="text-2xl font-normal">/mo</span>
-                </div>
-                <p className="text-blue-100">Cancel anytime. No commitment.</p>
+                {billingPeriod === 'yearly' && (
+                  <span className="inline-block bg-green-500 px-4 py-1 rounded-full text-sm font-semibold mb-4">
+                    Best Value - Save $40/year
+                  </span>
+                )}
+                {billingPeriod === 'monthly' && (
+                  <span className="inline-block bg-blue-500 px-4 py-1 rounded-full text-sm font-medium mb-4">
+                    Full Access
+                  </span>
+                )}
+
+                {billingPeriod === 'yearly' ? (
+                  <>
+                    <div className="text-5xl font-bold mb-2">
+                      $79<span className="text-2xl font-normal">/year</span>
+                    </div>
+                    <p className="text-blue-100">
+                      Just $6.58/month • Billed annually
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-5xl font-bold mb-2">
+                      $9.95<span className="text-2xl font-normal">/mo</span>
+                    </div>
+                    <p className="text-blue-100">Cancel anytime. No commitment.</p>
+                  </>
+                )}
               </div>
 
               {/* Features */}
@@ -90,7 +142,7 @@ export default function SubscribePage() {
                   onClick={handleSubscribe}
                   className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors"
                 >
-                  Start Learning Now
+                  {billingPeriod === 'yearly' ? 'Get Yearly Access' : 'Start Learning Now'}
                 </button>
 
                 <p className="text-center text-sm text-gray-500 mt-4">
@@ -236,12 +288,26 @@ export default function SubscribePage() {
             <p className="text-blue-100 mb-8">
               Join thousands of opticians worldwide preparing for their certification exams.
             </p>
-            <button
-              onClick={handleSubscribe}
-              className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
-            >
-              Subscribe for $9.95/month
-            </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={() => {
+                  setBillingPeriod('yearly')
+                  handleSubscribe()
+                }}
+                className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
+              >
+                Get Yearly Access - $79/year
+              </button>
+              <button
+                onClick={() => {
+                  setBillingPeriod('monthly')
+                  handleSubscribe()
+                }}
+                className="inline-flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-400 transition-colors"
+              >
+                Or $9.95/month
+              </button>
+            </div>
           </div>
         </section>
       </main>
