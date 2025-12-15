@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Quiz as QuizType, QuizQuestion } from '@/types'
-import { CheckCircle, XCircle, ArrowRight, RotateCcw, Award } from 'lucide-react'
+import { CheckCircle, XCircle, ArrowRight, RotateCcw, Award, LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
 
 interface QuizProps {
@@ -113,32 +113,54 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
           {answers.filter((a, i) => a === quiz.questions[i].correct_answer).length} of {totalQuestions} correct
         </p>
 
-        <div className="flex justify-center gap-4">
-          <button
-            onClick={handleRetry}
-            className="flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-          >
-            <RotateCcw className="w-4 h-4" />
-            Retry Quiz
-          </button>
+        <div className="flex flex-col items-center gap-4">
+          {passed ? (
+            <>
+              {/* Primary action - Next Lesson or Chapter Complete */}
+              {nextLessonUrl ? (
+                <Link
+                  href={nextLessonUrl}
+                  className="flex items-center gap-2 px-8 py-4 bg-green-600 text-white rounded-lg font-semibold text-lg hover:bg-green-700 transition-colors"
+                >
+                  Continue to Next Lesson
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              ) : (
+                <Link
+                  href="/dashboard"
+                  className="flex items-center gap-2 px-8 py-4 bg-green-600 text-white rounded-lg font-semibold text-lg hover:bg-green-700 transition-colors"
+                >
+                  Chapter Complete! View Progress
+                  <CheckCircle className="w-5 h-5" />
+                </Link>
+              )}
 
-          {passed && nextLessonUrl && (
-            <Link
-              href={nextLessonUrl}
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+              {/* Secondary actions */}
+              <div className="flex gap-3">
+                <Link
+                  href="/dashboard"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  View Dashboard
+                </Link>
+                <button
+                  onClick={handleRetry}
+                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Retry Quiz
+                </button>
+              </div>
+            </>
+          ) : (
+            <button
+              onClick={handleRetry}
+              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
-              Next Lesson
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          )}
-          {passed && !nextLessonUrl && (
-            <Link
-              href="/learn"
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
-            >
-              Chapter Complete!
-              <CheckCircle className="w-4 h-4" />
-            </Link>
+              <RotateCcw className="w-4 h-4" />
+              Try Again
+            </button>
           )}
         </div>
       </div>
