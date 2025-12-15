@@ -1,6 +1,6 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { BookOpen, Award, Globe, Users, Target, Heart } from 'lucide-react'
+import { BookOpen, Award, Globe, Users, Target, Heart, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
 export default function AboutPage() {
@@ -16,8 +16,7 @@ export default function AboutPage() {
               About OpticianStudy
             </h1>
             <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              Helping aspiring opticians worldwide pass their ABO and NCLE certification exams
-              with comprehensive, accessible training.
+              Comprehensive optical education for opticians at every stage of their career.
             </p>
           </div>
         </section>
@@ -34,14 +33,13 @@ export default function AboutPage() {
               </div>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
                 We believe that quality optician education should be accessible to everyone,
-                regardless of location or background. Our mission is to provide comprehensive,
-                easy-to-understand training materials that help students master the knowledge
-                needed to become certified opticians.
+                regardless of location or experience level. Our mission is to provide comprehensive,
+                easy-to-understand training materials that help opticians master their craft—whether
+                you're just starting out, preparing for certification, or keeping your skills sharp.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Whether you're preparing for your ABO certification, NCLE exam, or both,
                 OpticianStudy provides the structured curriculum and practice tools you need
-                to succeed.
+                to build confidence and excel in your optical career.
               </p>
             </div>
           </div>
@@ -65,7 +63,7 @@ export default function AboutPage() {
                   </h3>
                   <p className="text-gray-600">
                     52 chapters covering everything from optical fundamentals to advanced
-                    contact lens fitting, all aligned with ABO and NCLE exam topics.
+                    contact lens fitting—perfect for learning or refreshing your knowledge.
                   </p>
                 </div>
               </div>
@@ -95,7 +93,7 @@ export default function AboutPage() {
                   </h3>
                   <p className="text-gray-600">
                     Built-in Google Translate support for 100+ languages, making optical
-                    education accessible to students worldwide.
+                    education accessible to learners worldwide.
                   </p>
                 </div>
               </div>
@@ -110,7 +108,7 @@ export default function AboutPage() {
                   </h3>
                   <p className="text-gray-600">
                     Study on your own schedule with bite-sized lessons designed for
-                    busy professionals and students.
+                    busy professionals.
                   </p>
                 </div>
               </div>
@@ -127,26 +125,26 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
-                <div className="text-4xl mb-4">🎓</div>
-                <h3 className="font-semibold text-gray-900 mb-2">Students</h3>
+                <div className="text-4xl mb-4">🌱</div>
+                <h3 className="font-semibold text-gray-900 mb-2">Newcomers</h3>
                 <p className="text-gray-600 text-sm">
-                  New to the field and preparing for your first certification exam.
+                  Just starting in optical? Learn the fundamentals from the ground up.
                 </p>
               </div>
 
               <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
-                <div className="text-4xl mb-4">👓</div>
-                <h3 className="font-semibold text-gray-900 mb-2">Working Opticians</h3>
+                <div className="text-4xl mb-4">📋</div>
+                <h3 className="font-semibold text-gray-900 mb-2">Certification Seekers</h3>
                 <p className="text-gray-600 text-sm">
-                  Looking to add ABO or NCLE certification to advance your career.
+                  Preparing for ABO or NCLE exams with structured study materials.
                 </p>
               </div>
 
               <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
-                <div className="text-4xl mb-4">🌍</div>
-                <h3 className="font-semibold text-gray-900 mb-2">International Learners</h3>
+                <div className="text-4xl mb-4">⭐</div>
+                <h3 className="font-semibold text-gray-900 mb-2">Experienced Opticians</h3>
                 <p className="text-gray-600 text-sm">
-                  Studying optical knowledge in your preferred language from anywhere.
+                  Refresh your knowledge and stay sharp on best practices.
                 </p>
               </div>
             </div>
@@ -163,7 +161,7 @@ export default function AboutPage() {
               Ready to Start Learning?
             </h2>
             <p className="text-blue-100 mb-8">
-              Join students worldwide preparing for their optician certification exams.
+              Join opticians worldwide building and strengthening their optical knowledge.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
