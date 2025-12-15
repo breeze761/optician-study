@@ -63,11 +63,11 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-blue-600">11</div>
+                <div className="text-3xl md:text-4xl font-bold text-blue-600">13</div>
                 <div className="text-gray-600 mt-1">Chapters</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-blue-600">50+</div>
+                <div className="text-3xl md:text-4xl font-bold text-blue-600">60+</div>
                 <div className="text-gray-600 mt-1">Lessons</div>
               </div>
               <div className="text-center">
@@ -178,7 +178,7 @@ export default function Home() {
                 Complete Curriculum
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                11 comprehensive chapters covering everything you need to know for ABO and NCLE certification.
+                13 comprehensive chapters covering everything you need to know for ABO and NCLE certification.
               </p>
             </div>
 
