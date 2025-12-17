@@ -8,6 +8,26 @@ export const metadata: Metadata = {
   title: 'Free Optical Calculators for Opticians | OpticianStudy',
   description: 'Professional optical calculators for opticians: prescription transposition, reading glasses power, computer glasses conversion, vertex distance, prism, and more. Free tools for daily dispensing.',
   keywords: 'optical calculator, optician calculator, transposition calculator, reading glasses calculator, computer glasses calculator, vertex distance calculator, prism calculator, lens thickness calculator',
+  alternates: {
+    canonical: '/calculators',
+  },
+}
+
+const calculatorsSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Free Optical Calculators",
+  "description": "Professional optical calculation tools for opticians",
+  "url": "https://www.opticianstudy.com/calculators",
+  "numberOfItems": 11,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Rx Transposition Calculator" },
+    { "@type": "ListItem", "position": 2, "name": "Reading Glasses Power Calculator" },
+    { "@type": "ListItem", "position": 3, "name": "Computer Glasses Calculator" },
+    { "@type": "ListItem", "position": 4, "name": "Vertex Distance Compensation" },
+    { "@type": "ListItem", "position": 5, "name": "Progressive Lens Identifier" },
+    { "@type": "ListItem", "position": 6, "name": "Prism Calculator" }
+  ]
 }
 
 const calculators = [
@@ -104,6 +124,7 @@ const calculators = [
 export default function CalculatorsPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorsSchema) }} />
       <Header />
 
       <main className="min-h-screen bg-gray-50">

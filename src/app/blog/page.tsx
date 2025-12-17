@@ -6,12 +6,25 @@ import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import { getAllPosts } from '@/data/blog-posts'
 
 export const metadata: Metadata = {
-  title: 'Optician Blog - Study Guides, Career Tips & Exam Prep',
+  title: 'Optician Blog - Study Guides, Career Tips & Exam Prep | OpticianStudy',
   description: 'Expert guides on becoming a licensed optician, passing ABO & NCLE exams, study tips, career advice, and CE credit information. Free resources for optician students.',
-  keywords: 'optician blog, ABO exam tips, NCLE study guide, how to become optician, optician career, optician certification',
+  keywords: 'optician blog, ABO exam tips, NCLE study guide, how to become optician, optician career, optician certification, optician CE credits, optician study resources',
   alternates: {
     canonical: '/blog',
   },
+}
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "OpticianStudy Blog",
+  "description": "Expert guides, study tips, and career advice for opticians",
+  "url": "https://www.opticianstudy.com/blog",
+  "publisher": {
+    "@type": "Organization",
+    "name": "OpticianStudy",
+    "url": "https://www.opticianstudy.com"
+  }
 }
 
 export default function BlogPage() {
@@ -20,6 +33,7 @@ export default function BlogPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
       <Header />
       <main className="min-h-screen bg-gray-50">
         {/* Hero */}

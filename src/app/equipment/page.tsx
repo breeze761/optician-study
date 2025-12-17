@@ -1,7 +1,62 @@
+import { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Link from 'next/link'
-import { Microscope, Target, Eye, ArrowRight, CheckCircle, BookOpen } from 'lucide-react'
+import { Microscope, Target, ArrowRight, CheckCircle, BookOpen } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Optical Equipment Training | Lensometer, Keratometer, Slit Lamp Guide',
+  description: 'Master essential optical equipment for ABO and NCLE certification exams. Learn lensometer, keratometer, slit lamp, phoropter, trial frame, and visual acuity testing with step-by-step guides.',
+  keywords: 'optical equipment training, lensometer training, keratometer tutorial, slit lamp guide, phoropter instructions, ABO exam equipment, NCLE exam equipment, optician equipment',
+  alternates: {
+    canonical: '/equipment',
+  },
+}
+
+const equipmentSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Optical Equipment Training Modules",
+  "description": "Comprehensive training guides for optical equipment used in eye care",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Lensometer Training",
+      "url": "https://www.opticianstudy.com/equipment/lensometer"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Keratometer Training",
+      "url": "https://www.opticianstudy.com/equipment/keratometer"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Slit Lamp Training",
+      "url": "https://www.opticianstudy.com/equipment/slit-lamp"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Phoropter Training",
+      "url": "https://www.opticianstudy.com/equipment/phoropter"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Trial Frame Training",
+      "url": "https://www.opticianstudy.com/equipment/trial-frame"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "name": "Visual Acuity Testing",
+      "url": "https://www.opticianstudy.com/equipment/visual-acuity"
+    }
+  ]
+}
 
 const equipmentCategories = [
   {
@@ -123,6 +178,7 @@ const equipmentCategories = [
 export default function EquipmentPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(equipmentSchema) }} />
       <Header />
 
       <main className="min-h-screen bg-gray-50">

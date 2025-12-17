@@ -1,11 +1,35 @@
+import { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { BookOpen, Award, Globe, Users, Target, Heart, RefreshCw } from 'lucide-react'
+import { BookOpen, Award, Globe, Users, Target, Heart } from 'lucide-react'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'About OpticianStudy | Our Mission & Story',
+  description: 'OpticianStudy provides comprehensive online optician education for ABO and NCLE exam preparation. Learn about our mission to make quality optical education accessible worldwide.',
+  keywords: 'about OpticianStudy, optician education, optical training, ABO NCLE prep, optician certification course, online optician school',
+  alternates: {
+    canonical: '/about',
+  },
+}
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About OpticianStudy",
+  "description": "Learn about OpticianStudy's mission to provide accessible optician education",
+  "mainEntity": {
+    "@type": "EducationalOrganization",
+    "name": "OpticianStudy",
+    "description": "Online optician training and ABO/NCLE exam preparation",
+    "url": "https://www.opticianstudy.com"
+  }
+}
 
 export default function AboutPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }} />
       <Header />
 
       <main className="min-h-screen bg-gray-50">

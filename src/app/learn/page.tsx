@@ -1,17 +1,42 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { chapters, curriculumOutline } from '@/data/chapters'
-import { Lock, Play, CheckCircle } from 'lucide-react'
+import { Lock, Play } from 'lucide-react'
 
-export const metadata = {
-  title: 'All Courses | OpticianStudy',
-  description: 'Browse all chapters and lessons in our comprehensive ABO and NCLE exam preparation program.',
+export const metadata: Metadata = {
+  title: 'Optician Course Curriculum | ABO & NCLE Exam Prep Lessons',
+  description: 'Browse our complete optician training curriculum with 52 chapters and 325+ lessons covering everything for ABO and NCLE certification exams. Start with a free chapter today.',
+  keywords: 'optician course, ABO exam lessons, NCLE exam curriculum, optician training chapters, optical education, optician certification course',
+  alternates: {
+    canonical: '/learn',
+  },
+}
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "OpticianStudy Certification Prep",
+  "description": "Comprehensive ABO and NCLE optician certification exam preparation course",
+  "provider": {
+    "@type": "Organization",
+    "name": "OpticianStudy",
+    "url": "https://www.opticianstudy.com"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "courseWorkload": "PT50H"
+  },
+  "numberOfCredits": 52,
+  "educationalLevel": "Professional Certification"
 }
 
 export default function LearnPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
       <Header />
 
       <main className="min-h-screen bg-gray-50">
