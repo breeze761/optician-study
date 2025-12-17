@@ -85,7 +85,7 @@ async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
   }
 
   // Fetch the subscription details
-  const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription
 
   // Upsert the subscription record
   const { error } = await supabaseAdmin
@@ -96,8 +96,8 @@ async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
       stripe_subscription_id: subscriptionId,
       status: subscription.status,
       price_id: subscription.items.data[0]?.price.id,
-      current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-      current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+      current_period_start: new Date((subscription as any).current_period_start * 1000).toISOString(),
+      current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
       cancel_at_period_end: subscription.cancel_at_period_end,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -135,8 +135,8 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
     .update({
       status: subscription.status,
       price_id: subscription.items.data[0]?.price.id,
-      current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-      current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+      current_period_start: new Date((subscription as any).current_period_start * 1000).toISOString(),
+      current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
       cancel_at_period_end: subscription.cancel_at_period_end,
       updated_at: new Date().toISOString(),
     })
@@ -169,8 +169,9 @@ async function handleSubscriptionCanceled(subscription: Stripe.Subscription) {
 
 async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   // Update subscription period dates on successful renewal
-  if (invoice.subscription) {
-    const subscription = await stripe.subscriptions.retrieve(invoice.subscription as string)
+  const subscriptionId = (invoice as any).subscription
+  if (subscriptionId) {
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId as string) as Stripe.Subscription
     await handleSubscriptionUpdate(subscription)
   }
 }
