@@ -90,6 +90,14 @@ const calculators = [
     icon: '🔍',
     features: ['Power factor', 'Shape factor', 'Total magnification', 'Iseikonic lens design'],
     popular: false
+  },
+  {
+    id: 'spherical-equivalent',
+    title: 'Spherical Equivalent Calculator',
+    description: 'Convert sphero-cylindrical prescriptions to spherical equivalent for contact lens fitting and comparisons.',
+    icon: '⚖️',
+    features: ['SE = Sphere + Cyl/2', 'Both eyes', 'CL fitting', 'Refractive surgery'],
+    popular: false
   }
 ]
 
