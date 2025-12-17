@@ -4,51 +4,84 @@ import { useState } from 'react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, RotateCcw, ChevronDown, ChevronUp, Monitor } from 'lucide-react'
+import { ArrowLeft, RotateCcw, ChevronDown, ChevronUp, Monitor, Eye } from 'lucide-react'
+
+interface EyeRx {
+  sphere: string
+  cylinder: string
+  axis: string
+  add: string
+}
+
+interface ComputerRx {
+  sphere: string
+  cylinder: string
+  axis: string
+}
 
 export default function ComputerGlassesCalculatorPage() {
-  const [readingAdd, setReadingAdd] = useState('')
+  const [odRx, setOdRx] = useState<EyeRx>({ sphere: '', cylinder: '', axis: '', add: '' })
+  const [osRx, setOsRx] = useState<EyeRx>({ sphere: '', cylinder: '', axis: '', add: '' })
   const [screenDistance, setScreenDistance] = useState('60')
-  const [distanceSphere, setDistanceSphere] = useState('')
-  const [hasDistanceRx, setHasDistanceRx] = useState(false)
   const [result, setResult] = useState<{
-    computerAdd: string
-    totalPower: string
+    od: ComputerRx
+    os: ComputerRx
+    computerAddUsed: string
     percentOfAdd: string
     focusRange: string
     notes: string[]
   } | null>(null)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0)
 
-  const calculate = () => {
-    const add = parseFloat(readingAdd)
-    const distCm = parseFloat(screenDistance)
-    const distSph = hasDistanceRx ? parseFloat(distanceSphere) || 0 : 0
-
-    if (isNaN(add) || isNaN(distCm)) return
+  const calculateComputerRx = (eye: EyeRx, distCm: number): ComputerRx => {
+    const sphere = parseFloat(eye.sphere) || 0
+    const add = parseFloat(eye.add) || 0
 
     // Computer add calculation
-    // Reading add is calibrated for 40cm. For other distances, scale proportionally
-    // Formula: Computer Add = Reading Add × (40 / Screen Distance)
-    // Or use: Required dioptric demand = 100/distance(cm) - buffer
-
-    // Method: Typically 50-60% of reading add for computer
-    // More precise: Full reading add at 40cm, so at 60cm need 40/60 = 67% of add
+    // Reading add is calibrated for 40cm. For screen distance, scale proportionally
     const ratio = 40 / distCm
     let computerAdd = add * ratio
 
-    // Practical minimum is usually 0.50D
-    computerAdd = Math.max(computerAdd, 0.50)
+    // Practical minimum is usually 0.50D if they have any add
+    if (add > 0) {
+      computerAdd = Math.max(computerAdd, 0.50)
+    }
 
     // Round to nearest 0.25
     computerAdd = Math.round(computerAdd * 4) / 4
 
+    // Total sphere = distance sphere + computer add
+    const totalSphere = sphere + computerAdd
+
+    return {
+      sphere: totalSphere >= 0 ? `+${totalSphere.toFixed(2)}` : totalSphere.toFixed(2),
+      cylinder: eye.cylinder || 'SPH',
+      axis: eye.cylinder ? eye.axis : ''
+    }
+  }
+
+  const calculate = () => {
+    const distCm = parseFloat(screenDistance)
+    const odAdd = parseFloat(odRx.add) || 0
+    const osAdd = parseFloat(osRx.add) || 0
+
+    // Need at least one eye's add power
+    if (odAdd === 0 && osAdd === 0) return
+
+    const odResult = calculateComputerRx(odRx, distCm)
+    const osResult = calculateComputerRx(osRx, distCm)
+
+    // Calculate info for display
+    const avgAdd = (odAdd + osAdd) / 2 || odAdd || osAdd
+    const ratio = 40 / distCm
+    let computerAdd = avgAdd * ratio
+    computerAdd = Math.max(computerAdd, 0.50)
+    computerAdd = Math.round(computerAdd * 4) / 4
+
     const percentOfReadingAdd = Math.round(ratio * 100)
 
-    const totalPower = distSph + computerAdd
-
     // Calculate approximate focus range
-    const nearPoint = Math.round(100 / (computerAdd + 0.50)) // with some accommodation
+    const nearPoint = Math.round(100 / (computerAdd + 0.50))
     const farPoint = Math.round(100 / computerAdd)
 
     const notes: string[] = []
@@ -58,16 +91,19 @@ export default function ComputerGlassesCalculatorPage() {
     if (distCm < 50) {
       notes.push('This is quite close for a computer screen. Consider ergonomic adjustments.')
     }
-    if (computerAdd >= add) {
+    if (computerAdd >= avgAdd && avgAdd > 0) {
       notes.push('Your screen is close enough that full reading power may be appropriate.')
     }
-    if (hasDistanceRx && Math.abs(distSph) > 3) {
+    const odSph = parseFloat(odRx.sphere) || 0
+    const osSph = parseFloat(osRx.sphere) || 0
+    if (Math.abs(odSph) > 3 || Math.abs(osSph) > 3) {
       notes.push('With a strong distance Rx, consider occupational progressives for best results.')
     }
 
     setResult({
-      computerAdd: `+${computerAdd.toFixed(2)}`,
-      totalPower: totalPower >= 0 ? `+${totalPower.toFixed(2)}` : totalPower.toFixed(2),
+      od: odResult,
+      os: osResult,
+      computerAddUsed: `+${computerAdd.toFixed(2)}`,
       percentOfAdd: `${percentOfReadingAdd}%`,
       focusRange: `${nearPoint}-${farPoint} cm`,
       notes
@@ -75,11 +111,18 @@ export default function ComputerGlassesCalculatorPage() {
   }
 
   const reset = () => {
-    setReadingAdd('')
+    setOdRx({ sphere: '', cylinder: '', axis: '', add: '' })
+    setOsRx({ sphere: '', cylinder: '', axis: '', add: '' })
     setScreenDistance('60')
-    setDistanceSphere('')
-    setHasDistanceRx(false)
     setResult(null)
+  }
+
+  const updateOdRx = (field: keyof EyeRx, value: string) => {
+    setOdRx(prev => ({ ...prev, [field]: value }))
+  }
+
+  const updateOsRx = (field: keyof EyeRx, value: string) => {
+    setOsRx(prev => ({ ...prev, [field]: value }))
   }
 
   const faqs = [
@@ -106,23 +149,14 @@ export default function ComputerGlassesCalculatorPage() {
     {
       question: 'How do I measure my screen distance?',
       answer: 'Sit at your computer in your normal working position. Have someone measure from your eyes to the center of your screen, or measure from your glasses to the screen and add about 1.5cm. Typical distances: laptop 50-60cm, desktop monitor 60-70cm, large monitor 70-80cm.'
-    },
-    {
-      question: 'What if I use multiple monitors at different distances?',
-      answer: 'For multiple monitors at similar distances, use the average distance. If monitors are at significantly different distances, occupational progressives or a degressive lens might work better than single vision computer glasses. The wider intermediate range handles the variation.'
-    },
-    {
-      question: 'Can I use computer glasses for reading?',
-      answer: 'Computer glasses will be slightly too weak for comfortable close reading. They\'re optimized for intermediate distance. You could hold reading material a bit farther away, but for extended reading, your full reading power is more comfortable. Many people keep both pairs handy.'
     }
   ]
 
-  const distanceGuide = [
-    { distance: '50 cm (20")', device: 'Laptop / Close desktop', addPercent: '80%' },
-    { distance: '60 cm (24")', device: 'Standard desktop monitor', addPercent: '67%' },
-    { distance: '70 cm (28")', device: 'Large monitor / Dual setup', addPercent: '57%' },
-    { distance: '80 cm (32")', device: 'Very large / Standing desk', addPercent: '50%' },
-  ]
+  const hasValidInput = () => {
+    const odAdd = parseFloat(odRx.add) || 0
+    const osAdd = parseFloat(osRx.add) || 0
+    return odAdd > 0 || osAdd > 0
+  }
 
   return (
     <>
@@ -147,7 +181,7 @@ export default function ComputerGlassesCalculatorPage() {
                   Computer Glasses Calculator
                 </h1>
                 <p className="text-cyan-200 mt-1">
-                  Convert your reading add to the perfect intermediate power for screens
+                  Enter your full prescription to calculate the ideal power for screen use
                 </p>
               </div>
             </div>
@@ -156,91 +190,136 @@ export default function ComputerGlassesCalculatorPage() {
 
         {/* Calculator */}
         <section className="py-8">
-          <div className="max-w-2xl mx-auto px-4">
+          <div className="max-w-3xl mx-auto px-4">
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              {/* Input Section */}
+              {/* Prescription Pad Input */}
               <div className="p-6 border-b border-gray-100">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Enter Your Information</h2>
+                <h2 className="text-lg font-semibold text-gray-900 mb-2">Enter Your Prescription</h2>
+                <p className="text-sm text-gray-500 mb-6">Enter your current glasses prescription (with reading add)</p>
 
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Your Reading Add Power
-                    </label>
+                {/* Prescription Pad Style Form */}
+                <div className="bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
+                  {/* Header Row */}
+                  <div className="grid grid-cols-5 gap-2 mb-2 text-center">
+                    <div className="text-xs font-semibold text-gray-500 uppercase"></div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase">Sphere (SPH)</div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase">Cylinder (CYL)</div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase">Axis</div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase">Add</div>
+                  </div>
+
+                  {/* OD (Right Eye) Row */}
+                  <div className="grid grid-cols-5 gap-2 mb-3 items-center">
+                    <div className="flex items-center gap-2">
+                      <Eye className="w-4 h-4 text-blue-600" />
+                      <span className="font-bold text-gray-700">OD</span>
+                      <span className="text-xs text-gray-400">(Right)</span>
+                    </div>
                     <input
-                      type="number"
-                      step="0.25"
-                      min="0.50"
-                      max="3.50"
-                      value={readingAdd}
-                      onChange={(e) => setReadingAdd(e.target.value)}
-                      placeholder="e.g., 2.00"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-lg"
+                      type="text"
+                      value={odRx.sphere}
+                      onChange={(e) => updateOdRx('sphere', e.target.value)}
+                      placeholder="-2.00"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Find this on your prescription next to &quot;Add&quot; or &quot;NV Add&quot;
-                    </p>
+                    <input
+                      type="text"
+                      value={odRx.cylinder}
+                      onChange={(e) => updateOdRx('cylinder', e.target.value)}
+                      placeholder="-0.75"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    />
+                    <input
+                      type="text"
+                      value={odRx.axis}
+                      onChange={(e) => updateOdRx('axis', e.target.value)}
+                      placeholder="180"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    />
+                    <input
+                      type="text"
+                      value={odRx.add}
+                      onChange={(e) => updateOdRx('add', e.target.value)}
+                      placeholder="+2.00"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg bg-yellow-50 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    />
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Screen Distance
-                    </label>
-                    <select
-                      value={screenDistance}
-                      onChange={(e) => setScreenDistance(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-lg"
-                    >
-                      <option value="50">50 cm (20&quot;) - Laptop / Close</option>
-                      <option value="55">55 cm (22&quot;) - Small desktop</option>
-                      <option value="60">60 cm (24&quot;) - Standard monitor</option>
-                      <option value="65">65 cm (26&quot;) - Medium-large monitor</option>
-                      <option value="70">70 cm (28&quot;) - Large monitor</option>
-                      <option value="75">75 cm (30&quot;) - Extended distance</option>
-                      <option value="80">80 cm (32&quot;) - Standing desk / Very large</option>
-                    </select>
+                  {/* OS (Left Eye) Row */}
+                  <div className="grid grid-cols-5 gap-2 items-center">
+                    <div className="flex items-center gap-2">
+                      <Eye className="w-4 h-4 text-green-600" />
+                      <span className="font-bold text-gray-700">OS</span>
+                      <span className="text-xs text-gray-400">(Left)</span>
+                    </div>
+                    <input
+                      type="text"
+                      value={osRx.sphere}
+                      onChange={(e) => updateOsRx('sphere', e.target.value)}
+                      placeholder="-1.75"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    />
+                    <input
+                      type="text"
+                      value={osRx.cylinder}
+                      onChange={(e) => updateOsRx('cylinder', e.target.value)}
+                      placeholder="-0.50"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    />
+                    <input
+                      type="text"
+                      value={osRx.axis}
+                      onChange={(e) => updateOsRx('axis', e.target.value)}
+                      placeholder="090"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    />
+                    <input
+                      type="text"
+                      value={osRx.add}
+                      onChange={(e) => updateOsRx('add', e.target.value)}
+                      placeholder="+2.00"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center font-mono text-lg bg-yellow-50 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
+                    />
                   </div>
 
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <label className="flex items-center gap-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={hasDistanceRx}
-                        onChange={(e) => setHasDistanceRx(e.target.checked)}
-                        className="w-5 h-5 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
-                      />
-                      <span className="text-gray-700">I have a distance prescription</span>
-                    </label>
+                  <p className="text-xs text-gray-500 mt-3 text-center">
+                    The <span className="bg-yellow-100 px-1 rounded">Add</span> power is required - this is your reading/near add from your prescription
+                  </p>
+                </div>
 
-                    {hasDistanceRx && (
-                      <div className="mt-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Distance Sphere (SPH)
-                        </label>
-                        <input
-                          type="number"
-                          step="0.25"
-                          value={distanceSphere}
-                          onChange={(e) => setDistanceSphere(e.target.value)}
-                          placeholder="-2.00"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
-                        />
-                      </div>
-                    )}
-                  </div>
+                {/* Screen Distance */}
+                <div className="mt-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <Monitor className="w-4 h-4 inline mr-1" />
+                    Screen Distance
+                  </label>
+                  <select
+                    value={screenDistance}
+                    onChange={(e) => setScreenDistance(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-lg"
+                  >
+                    <option value="50">50 cm (20&quot;) - Laptop / Close</option>
+                    <option value="55">55 cm (22&quot;) - Small desktop</option>
+                    <option value="60">60 cm (24&quot;) - Standard monitor</option>
+                    <option value="65">65 cm (26&quot;) - Medium-large monitor</option>
+                    <option value="70">70 cm (28&quot;) - Large monitor</option>
+                    <option value="75">75 cm (30&quot;) - Extended distance</option>
+                    <option value="80">80 cm (32&quot;) - Standing desk / Very large</option>
+                  </select>
                 </div>
 
                 <div className="flex gap-3 mt-6">
                   <button
                     onClick={calculate}
-                    disabled={!readingAdd}
+                    disabled={!hasValidInput()}
                     className="flex-1 bg-cyan-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-cyan-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                   >
-                    Calculate <Monitor className="w-5 h-5" />
+                    Calculate Computer Rx <Monitor className="w-5 h-5" />
                   </button>
                   <button
                     onClick={reset}
                     className="px-4 py-3 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+                    title="Reset"
                   >
                     <RotateCcw className="w-5 h-5" />
                   </button>
@@ -250,29 +329,69 @@ export default function ComputerGlassesCalculatorPage() {
               {/* Result Section */}
               {result && (
                 <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50">
-                  <h2 className="text-lg font-semibold text-cyan-900 mb-4">Your Computer Glasses Power</h2>
+                  <h2 className="text-lg font-semibold text-cyan-900 mb-4">Your Computer Glasses Prescription</h2>
 
-                  <div className="bg-white rounded-xl p-6 border border-cyan-200">
-                    <div className="grid grid-cols-2 gap-6 text-center">
-                      <div>
-                        <div className="text-sm text-gray-500 mb-1">Computer Add</div>
-                        <div className="text-3xl font-bold text-cyan-600">{result.computerAdd}</div>
-                        <div className="text-xs text-gray-500 mt-1">{result.percentOfAdd} of reading add</div>
+                  {/* Result Prescription Pad */}
+                  <div className="bg-white rounded-xl p-4 border-2 border-cyan-200 shadow-sm">
+                    {/* Header Row */}
+                    <div className="grid grid-cols-4 gap-2 mb-2 text-center">
+                      <div className="text-xs font-semibold text-gray-500 uppercase"></div>
+                      <div className="text-xs font-semibold text-gray-500 uppercase">Sphere (SPH)</div>
+                      <div className="text-xs font-semibold text-gray-500 uppercase">Cylinder (CYL)</div>
+                      <div className="text-xs font-semibold text-gray-500 uppercase">Axis</div>
+                    </div>
+
+                    {/* OD Result */}
+                    <div className="grid grid-cols-4 gap-2 mb-2 items-center">
+                      <div className="flex items-center gap-2">
+                        <Eye className="w-4 h-4 text-blue-600" />
+                        <span className="font-bold text-gray-700">OD</span>
                       </div>
-                      <div>
-                        <div className="text-sm text-gray-500 mb-1">Clear Focus Range</div>
-                        <div className="text-2xl font-bold text-gray-900">{result.focusRange}</div>
-                        <div className="text-xs text-gray-500 mt-1">Approximate comfortable zone</div>
+                      <div className="bg-cyan-100 px-3 py-2 rounded-lg text-center font-mono text-xl font-bold text-cyan-700">
+                        {result.od.sphere}
+                      </div>
+                      <div className="bg-gray-100 px-3 py-2 rounded-lg text-center font-mono text-xl text-gray-700">
+                        {result.od.cylinder}
+                      </div>
+                      <div className="bg-gray-100 px-3 py-2 rounded-lg text-center font-mono text-xl text-gray-700">
+                        {result.od.axis || '—'}
                       </div>
                     </div>
 
-                    {hasDistanceRx && (
-                      <div className="mt-4 pt-4 border-t border-gray-200 text-center">
-                        <div className="text-sm text-gray-500 mb-1">Total Computer Power</div>
-                        <div className="text-2xl font-bold text-gray-900">{result.totalPower}</div>
-                        <div className="text-xs text-gray-500 mt-1">Distance Rx + Computer Add</div>
+                    {/* OS Result */}
+                    <div className="grid grid-cols-4 gap-2 items-center">
+                      <div className="flex items-center gap-2">
+                        <Eye className="w-4 h-4 text-green-600" />
+                        <span className="font-bold text-gray-700">OS</span>
                       </div>
-                    )}
+                      <div className="bg-cyan-100 px-3 py-2 rounded-lg text-center font-mono text-xl font-bold text-cyan-700">
+                        {result.os.sphere}
+                      </div>
+                      <div className="bg-gray-100 px-3 py-2 rounded-lg text-center font-mono text-xl text-gray-700">
+                        {result.os.cylinder}
+                      </div>
+                      <div className="bg-gray-100 px-3 py-2 rounded-lg text-center font-mono text-xl text-gray-700">
+                        {result.os.axis || '—'}
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-gray-200 text-center text-sm text-gray-500">
+                      Single Vision for Computer Use at {screenDistance} cm
+                    </div>
+                  </div>
+
+                  {/* Additional Info */}
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div className="bg-white rounded-lg p-4 text-center border border-cyan-200">
+                      <div className="text-sm text-gray-500 mb-1">Intermediate Add Used</div>
+                      <div className="text-2xl font-bold text-cyan-600">{result.computerAddUsed}</div>
+                      <div className="text-xs text-gray-500">{result.percentOfAdd} of your reading add</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 text-center border border-cyan-200">
+                      <div className="text-sm text-gray-500 mb-1">Clear Focus Range</div>
+                      <div className="text-2xl font-bold text-gray-900">{result.focusRange}</div>
+                      <div className="text-xs text-gray-500">Comfortable viewing zone</div>
+                    </div>
                   </div>
 
                   {result.notes.length > 0 && (
@@ -285,44 +404,76 @@ export default function ComputerGlassesCalculatorPage() {
                       </ul>
                     </div>
                   )}
+
+                  <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <p className="text-sm text-yellow-800">
+                      <strong>Note:</strong> This is a calculated estimate for single vision computer glasses.
+                      Cylinder and axis remain unchanged from your distance Rx. Always verify with your eye care professional
+                      before ordering glasses.
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
           </div>
         </section>
 
-        {/* Distance Guide */}
+        {/* How It Works */}
         <section className="py-12 bg-white border-t border-gray-200">
           <div className="max-w-4xl mx-auto px-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              Screen Distance Quick Reference
+              How Computer Glasses Work
             </h2>
 
-            <div className="grid md:grid-cols-4 gap-4">
-              {distanceGuide.map((item, i) => (
-                <div key={i} className="bg-gray-50 rounded-xl p-4 text-center">
-                  <div className="text-lg font-bold text-gray-900">{item.distance}</div>
-                  <div className="text-sm text-gray-600 mt-1">{item.device}</div>
-                  <div className="text-2xl font-bold text-cyan-600 mt-2">{item.addPercent}</div>
-                  <div className="text-xs text-gray-500">of reading add</div>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">📖</span>
                 </div>
-              ))}
+                <h3 className="font-semibold text-gray-900 mb-2">Reading Add @ 40cm</h3>
+                <p className="text-gray-600 text-sm">Your full reading add is designed for close work at about 40cm (16 inches)</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">💻</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Computer @ 60cm</h3>
+                <p className="text-gray-600 text-sm">Screens are farther away, so you need less add power—typically 60-70% of reading add</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">✨</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Reduced Eye Strain</h3>
+                <p className="text-gray-600 text-sm">Proper intermediate power means comfortable all-day computer use without leaning in</p>
+              </div>
             </div>
 
-            <div className="mt-8 bg-cyan-50 rounded-xl p-6 border border-cyan-200">
-              <h3 className="font-semibold text-cyan-900 mb-3">Ergonomic Tips for Computer Work</h3>
-              <div className="grid md:grid-cols-2 gap-4 text-sm text-cyan-800">
-                <ul className="space-y-2">
-                  <li>• Monitor top should be at or slightly below eye level</li>
-                  <li>• Screen should be arm&apos;s length away (50-70cm)</li>
-                  <li>• Reduce glare with proper lighting and screen position</li>
-                </ul>
-                <ul className="space-y-2">
-                  <li>• Follow 20-20-20 rule: Every 20 min, look 20 feet away for 20 sec</li>
-                  <li>• Blink frequently - we blink less when staring at screens</li>
-                  <li>• Consider a document holder at same distance as screen</li>
-                </ul>
+            <div className="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-3">Screen Distance Quick Reference</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div className="bg-white rounded-lg p-3 border">
+                  <div className="font-bold text-gray-900">50 cm</div>
+                  <div className="text-xs text-gray-500">Laptop</div>
+                  <div className="text-lg font-bold text-cyan-600">80%</div>
+                </div>
+                <div className="bg-white rounded-lg p-3 border">
+                  <div className="font-bold text-gray-900">60 cm</div>
+                  <div className="text-xs text-gray-500">Desktop</div>
+                  <div className="text-lg font-bold text-cyan-600">67%</div>
+                </div>
+                <div className="bg-white rounded-lg p-3 border">
+                  <div className="font-bold text-gray-900">70 cm</div>
+                  <div className="text-xs text-gray-500">Large Monitor</div>
+                  <div className="text-lg font-bold text-cyan-600">57%</div>
+                </div>
+                <div className="bg-white rounded-lg p-3 border">
+                  <div className="font-bold text-gray-900">80 cm</div>
+                  <div className="text-xs text-gray-500">Standing Desk</div>
+                  <div className="text-lg font-bold text-cyan-600">50%</div>
+                </div>
               </div>
+              <p className="text-center text-xs text-gray-500 mt-3">Percentage of your reading add needed for each distance</p>
             </div>
           </div>
         </section>
@@ -371,15 +522,15 @@ export default function ComputerGlassesCalculatorPage() {
                 <h3 className="font-medium text-gray-900">Reading Glasses</h3>
                 <p className="text-sm text-gray-500">Calculate your reading add by age</p>
               </Link>
-              <Link href="/calculators/lens-cutout" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">✂️</div>
-                <h3 className="font-medium text-gray-900">Lens Cutout</h3>
-                <p className="text-sm text-gray-500">Check if a lens will fit your frame</p>
-              </Link>
               <Link href="/calculators/transposition" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
                 <div className="text-2xl mb-2">🔄</div>
                 <h3 className="font-medium text-gray-900">Transposition</h3>
                 <p className="text-sm text-gray-500">Convert plus/minus cylinder</p>
+              </Link>
+              <Link href="/calculators/vertex-distance" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
+                <div className="text-2xl mb-2">📏</div>
+                <h3 className="font-medium text-gray-900">Vertex Distance</h3>
+                <p className="text-sm text-gray-500">Compensate for high prescriptions</p>
               </Link>
             </div>
           </div>

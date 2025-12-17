@@ -178,38 +178,93 @@ export default function VertexDistanceCalculatorPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Original Vertex Distance (mm)
                     </label>
-                    <select
-                      value={originalVertex}
-                      onChange={(e) => setOriginalVertex(e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                    >
-                      <option value="10">10mm</option>
-                      <option value="11">11mm</option>
-                      <option value="12">12mm (Standard spectacles)</option>
-                      <option value="13">13mm</option>
-                      <option value="14">14mm</option>
-                      <option value="15">15mm</option>
-                    </select>
+                    <div className="flex gap-2">
+                      <input
+                        type="number"
+                        step="0.5"
+                        min="0"
+                        max="30"
+                        value={originalVertex}
+                        onChange={(e) => setOriginalVertex(e.target.value)}
+                        placeholder="12"
+                        className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-mono"
+                      />
+                      <span className="flex items-center text-gray-500 font-medium">mm</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <button type="button" onClick={() => setOriginalVertex('0')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${originalVertex === '0' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>0 (CL)</button>
+                      <button type="button" onClick={() => setOriginalVertex('10')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${originalVertex === '10' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>10</button>
+                      <button type="button" onClick={() => setOriginalVertex('12')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${originalVertex === '12' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>12</button>
+                      <button type="button" onClick={() => setOriginalVertex('13.5')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${originalVertex === '13.5' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>13.5</button>
+                      <button type="button" onClick={() => setOriginalVertex('14')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${originalVertex === '14' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>14</button>
+                      <button type="button" onClick={() => setOriginalVertex('15')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${originalVertex === '15' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>15</button>
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       New Vertex Distance (mm)
                     </label>
-                    <select
-                      value={newVertex}
-                      onChange={(e) => setNewVertex(e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                    >
-                      <option value="0">0mm (Contact lenses)</option>
-                      <option value="10">10mm</option>
-                      <option value="11">11mm</option>
-                      <option value="12">12mm</option>
-                      <option value="13">13mm</option>
-                      <option value="14">14mm</option>
-                      <option value="15">15mm</option>
-                      <option value="16">16mm</option>
-                    </select>
+                    <div className="flex gap-2">
+                      <input
+                        type="number"
+                        step="0.5"
+                        min="0"
+                        max="30"
+                        value={newVertex}
+                        onChange={(e) => setNewVertex(e.target.value)}
+                        placeholder="0"
+                        className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-mono"
+                      />
+                      <span className="flex items-center text-gray-500 font-medium">mm</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <button type="button" onClick={() => setNewVertex('0')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${newVertex === '0' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>0 (CL)</button>
+                      <button type="button" onClick={() => setNewVertex('10')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${newVertex === '10' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>10</button>
+                      <button type="button" onClick={() => setNewVertex('12')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${newVertex === '12' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>12</button>
+                      <button type="button" onClick={() => setNewVertex('13.5')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${newVertex === '13.5' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>13.5</button>
+                      <button type="button" onClick={() => setNewVertex('14')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${newVertex === '14' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>14</button>
+                      <button type="button" onClick={() => setNewVertex('15')} className={`px-3 py-1 text-xs rounded-full border transition-colors ${newVertex === '15' ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-100 border-gray-200 hover:bg-gray-200'}`}>15</button>
+                    </div>
+                  </div>
+
+                  {/* Common Scenarios Quick Buttons */}
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-sm font-medium text-gray-700 mb-3">Common Conversions:</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => { setOriginalVertex('12'); setNewVertex('0'); }}
+                        className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
+                      >
+                        <span className="font-medium block">Spectacles → Contacts</span>
+                        <span className="text-gray-500">12mm → 0mm</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setOriginalVertex('0'); setNewVertex('12'); }}
+                        className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
+                      >
+                        <span className="font-medium block">Contacts → Spectacles</span>
+                        <span className="text-gray-500">0mm → 12mm</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setOriginalVertex('13.5'); setNewVertex('12'); }}
+                        className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
+                      >
+                        <span className="font-medium block">Phoropter → Frame</span>
+                        <span className="text-gray-500">13.5mm → 12mm</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setOriginalVertex('12'); setNewVertex('14'); }}
+                        className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
+                      >
+                        <span className="font-medium block">Frame Change</span>
+                        <span className="text-gray-500">12mm → 14mm</span>
+                      </button>
+                    </div>
                   </div>
 
                   <button
