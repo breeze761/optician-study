@@ -32,10 +32,10 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
 
   const handleCheckAnswer = () => {
     if (selectedAnswer === null) return
-    setShowResult(true)
     const newAnswers = [...answers]
     newAnswers[currentQuestion] = selectedAnswer
     setAnswers(newAnswers)
+    setShowResult(true)
   }
 
   const handleNextQuestion = () => {
@@ -44,12 +44,10 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
       setSelectedAnswer(null)
       setShowResult(false)
     } else {
-      // Quiz complete
+      // Quiz complete - answers array already has all answers from handleCheckAnswer
       let correctCount = 0
       for (let i = 0; i < answers.length; i++) {
-        // Use current answer for the last question
-        const answerToCheck = i === currentQuestion ? selectedAnswer : answers[i]
-        if (answerToCheck === quiz.questions[i].correct_answer) {
+        if (answers[i] === quiz.questions[i].correct_answer) {
           correctCount++
         }
       }
@@ -72,8 +70,7 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
   const calculateScore = () => {
     let correctCount = 0
     for (let i = 0; i < answers.length; i++) {
-      const answerToCheck = i === currentQuestion ? selectedAnswer : answers[i]
-      if (answerToCheck === quiz.questions[i].correct_answer) {
+      if (answers[i] === quiz.questions[i].correct_answer) {
         correctCount++
       }
     }
@@ -145,6 +142,7 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
                   View Dashboard
                 </Link>
                 <button
+                  type="button"
                   onClick={handleRetry}
                   className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 font-medium transition-colors"
                 >
@@ -155,6 +153,7 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
             </>
           ) : (
             <button
+              type="button"
               onClick={handleRetry}
               className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
@@ -207,6 +206,7 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
 
             return (
               <button
+                type="button"
                 key={index}
                 onClick={() => handleSelectAnswer(index)}
                 disabled={showResult}
@@ -261,6 +261,7 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
         <div className="flex justify-end">
           {!showResult ? (
             <button
+              type="button"
               onClick={handleCheckAnswer}
               disabled={selectedAnswer === null}
               className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
@@ -273,6 +274,7 @@ export default function Quiz({ quiz, onComplete, nextLessonUrl, nextLessonTitle 
             </button>
           ) : (
             <button
+              type="button"
               onClick={handleNextQuestion}
               className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >

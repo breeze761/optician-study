@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Menu, X, BookOpen, User } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { Menu, X, BookOpen, User, Calculator, Microscope } from 'lucide-react'
 import GoogleTranslate from '@/components/GoogleTranslate'
 import { createClient } from '@/lib/supabase/client'
 
@@ -10,6 +11,12 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const pathname = usePathname()
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -54,6 +61,24 @@ export default function Header() {
                 className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
               >
                 Courses
+              </Link>
+              <Link
+                href="/practice"
+                className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+              >
+                Practice
+              </Link>
+              <Link
+                href="/equipment"
+                className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+              >
+                Equipment
+              </Link>
+              <Link
+                href="/calculators"
+                className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+              >
+                Calculators
               </Link>
               <Link
                 href="/subscribe"
@@ -115,22 +140,37 @@ export default function Header() {
               <div className="flex flex-col gap-4">
                 <Link
                   href="/learn"
-                  className="text-gray-600 hover:text-blue-600 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-600 hover:text-blue-600 font-medium py-2 block"
                 >
                   Courses
                 </Link>
                 <Link
+                  href="/practice"
+                  className="text-gray-600 hover:text-blue-600 font-medium py-2 block"
+                >
+                  Practice
+                </Link>
+                <Link
+                  href="/equipment"
+                  className="text-gray-600 hover:text-blue-600 font-medium py-2 block"
+                >
+                  Equipment
+                </Link>
+                <Link
+                  href="/calculators"
+                  className="text-gray-600 hover:text-blue-600 font-medium py-2 block"
+                >
+                  Calculators
+                </Link>
+                <Link
                   href="/subscribe"
-                  className="text-gray-600 hover:text-blue-600 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-600 hover:text-blue-600 font-medium py-2 block"
                 >
                   Pricing
                 </Link>
                 <Link
                   href="/about"
-                  className="text-gray-600 hover:text-blue-600 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-600 hover:text-blue-600 font-medium py-2 block"
                 >
                   About
                 </Link>
@@ -139,7 +179,6 @@ export default function Header() {
                   <Link
                     href="/dashboard"
                     className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium justify-center"
-                    onClick={() => setMobileMenuOpen(false)}
                   >
                     <User className="w-4 h-4" />
                     Dashboard
@@ -148,15 +187,13 @@ export default function Header() {
                   <>
                     <Link
                       href="/auth/login"
-                      className="text-center text-gray-600 hover:text-blue-600 font-medium"
-                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-center text-gray-600 hover:text-blue-600 font-medium py-2 block"
                     >
                       Log In
                     </Link>
                     <Link
                       href="/auth/signup"
                       className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium justify-center"
-                      onClick={() => setMobileMenuOpen(false)}
                     >
                       Sign Up
                     </Link>

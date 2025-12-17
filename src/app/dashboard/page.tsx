@@ -17,15 +17,22 @@ import {
   CheckCircle,
   LogOut,
   Settings,
-  Crown
+  Crown,
+  CreditCard,
+  Loader2
 } from 'lucide-react'
 import { curriculumOutline, chapters } from '@/data/chapters'
+import { getCompletedLessonsCount, getQuizzesPassed, getStudyTimeHours } from '@/lib/progress'
 
 export default function DashboardPage() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [isSubscribed, setIsSubscribed] = useState(false)
+  const [completedLessons, setCompletedLessons] = useState(0)
+  const [quizzesPassed, setQuizzesPassed] = useState(0)
+  const [studyTimeHours, setStudyTimeHours] = useState(0)
+  const [portalLoading, setPortalLoading] = useState(false)
 
   useEffect(() => {
     const checkUser = async () => {
@@ -38,13 +45,29 @@ export default function DashboardPage() {
       }
 
       setUser(user)
-      // TODO: Check subscription status from database
-      // For now, check if user has subscription metadata
-      setIsSubscribed(user.user_metadata?.is_subscribed || false)
+
+      // Check subscription status from database
+      const { data: subscription } = await supabase
+        .from('subscriptions')
+        .select('status, current_period_end')
+        .eq('user_id', user.id)
+        .single()
+
+      // User is subscribed if status is active/trialing and period hasn't ended
+      const hasActiveSubscription = subscription &&
+        ['active', 'trialing'].includes(subscription.status) &&
+        (!subscription.current_period_end || new Date(subscription.current_period_end) > new Date())
+
+      setIsSubscribed(hasActiveSubscription || false)
       setLoading(false)
     }
 
     checkUser()
+
+    // Load progress from localStorage
+    setCompletedLessons(getCompletedLessonsCount())
+    setQuizzesPassed(getQuizzesPassed())
+    setStudyTimeHours(getStudyTimeHours())
   }, [router])
 
   const handleLogout = async () => {
@@ -52,6 +75,28 @@ export default function DashboardPage() {
     await supabase.auth.signOut()
     router.push('/')
     router.refresh()
+  }
+
+  const handleManageSubscription = async () => {
+    setPortalLoading(true)
+    try {
+      const response = await fetch('/api/portal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await response.json()
+
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        alert('Failed to open subscription portal. Please try again.')
+      }
+    } catch (error) {
+      console.error('Portal error:', error)
+      alert('Failed to open subscription portal. Please try again.')
+    } finally {
+      setPortalLoading(false)
+    }
   }
 
   if (loading) {
@@ -69,9 +114,8 @@ export default function DashboardPage() {
     )
   }
 
-  const completedLessons = 0 // TODO: Get from database
   const totalLessons = curriculumOutline.reduce((sum, ch) => sum + ch.lessons, 0)
-  const progressPercent = Math.round((completedLessons / totalLessons) * 100)
+  const progressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0
 
   return (
     <>
@@ -143,7 +187,7 @@ export default function DashboardPage() {
                     <Award className="w-5 h-5 text-purple-600" />
                   </div>
                 </div>
-                <div className="text-2xl font-bold text-gray-900">0</div>
+                <div className="text-2xl font-bold text-gray-900">{quizzesPassed}</div>
                 <div className="text-sm text-gray-500">Quizzes Passed</div>
               </div>
 
@@ -153,7 +197,7 @@ export default function DashboardPage() {
                     <Clock className="w-5 h-5 text-orange-600" />
                   </div>
                 </div>
-                <div className="text-2xl font-bold text-gray-900">0h</div>
+                <div className="text-2xl font-bold text-gray-900">{studyTimeHours}h</div>
                 <div className="text-sm text-gray-500">Study Time</div>
               </div>
             </div>
@@ -284,7 +328,7 @@ export default function DashboardPage() {
                   <div className="text-sm text-gray-500">{user?.email}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-sm">
+              <div className="flex items-center gap-3 text-sm flex-wrap">
                 <span className={`px-3 py-1 rounded-full ${
                   isSubscribed
                     ? 'bg-green-100 text-green-700'
@@ -293,7 +337,23 @@ export default function DashboardPage() {
                   {isSubscribed ? '✓ Premium Member' : 'Free Account'}
                 </span>
                 {isSubscribed && (
-                  <span className="text-gray-500">• Manage subscription in Stripe</span>
+                  <button
+                    onClick={handleManageSubscription}
+                    disabled={portalLoading}
+                    className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium disabled:opacity-50"
+                  >
+                    {portalLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="w-4 h-4" />
+                        Manage Subscription
+                      </>
+                    )}
+                  </button>
                 )}
               </div>
             </div>

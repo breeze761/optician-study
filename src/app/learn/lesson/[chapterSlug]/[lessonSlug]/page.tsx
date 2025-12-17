@@ -8,6 +8,7 @@ import Footer from '@/components/layout/Footer'
 import LessonContent from '@/components/learn/LessonContent'
 import Quiz from '@/components/learn/Quiz'
 import { getLessonBySlug, chapters } from '@/data/chapters'
+import { markLessonComplete } from '@/lib/progress'
 import {
   ArrowLeft,
   ArrowRight,
@@ -43,6 +44,9 @@ export default function LessonPage({ params }: PageProps) {
   const handleQuizComplete = (score: number, passed: boolean) => {
     setQuizScore(score)
     setQuizCompleted(passed)
+    if (passed) {
+      markLessonComplete(chapterSlug, lessonSlug, score)
+    }
   }
 
   return (

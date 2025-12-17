@@ -1,13 +1,46 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { CheckCircle, Globe, BookOpen, Award, Clock, Users } from 'lucide-react'
-
-// Stripe Payment Links
-const STRIPE_MONTHLY_LINK = 'https://buy.stripe.com/aFa7sMeYBamF85q2PC9Zm02'
-const STRIPE_YEARLY_LINK = 'https://buy.stripe.com/3cI6oI3fTamF5Xi61O9Zm03'
+import { CheckCircle, Globe, BookOpen, Award, Clock, Users, Loader2 } from 'lucide-react'
 
 export default function SubscribePage() {
+  const router = useRouter()
+  const [loading, setLoading] = useState<'monthly' | 'yearly' | null>(null)
+
+  const handleSubscribe = async (plan: 'monthly' | 'yearly') => {
+    setLoading(plan)
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ plan }),
+      })
+
+      const data = await response.json()
+
+      if (data.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = data.url
+      } else if (response.status === 401) {
+        // User not logged in - redirect to login with return URL
+        router.push('/auth/login?redirect=/subscribe')
+      } else {
+        alert('Failed to start checkout. Please try again.')
+        setLoading(null)
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      alert('Failed to start checkout. Please try again.')
+      setLoading(null)
+    }
+  }
 
   return (
     <>
@@ -74,12 +107,20 @@ export default function SubscribePage() {
                     </li>
                   </ul>
 
-                  <a
-                    href={STRIPE_MONTHLY_LINK}
-                    className="block w-full bg-gray-800 text-white py-4 rounded-lg font-semibold text-lg hover:bg-gray-900 transition-colors text-center"
+                  <button
+                    onClick={() => handleSubscribe('monthly')}
+                    disabled={loading !== null}
+                    className="block w-full bg-gray-800 text-white py-4 rounded-lg font-semibold text-lg hover:bg-gray-900 transition-colors text-center disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Get Monthly Access
-                  </a>
+                    {loading === 'monthly' ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Loading...
+                      </span>
+                    ) : (
+                      'Get Monthly Access'
+                    )}
+                  </button>
                 </div>
               </div>
 
@@ -126,18 +167,26 @@ export default function SubscribePage() {
                     </li>
                   </ul>
 
-                  <a
-                    href={STRIPE_YEARLY_LINK}
-                    className="block w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors text-center"
+                  <button
+                    onClick={() => handleSubscribe('yearly')}
+                    disabled={loading !== null}
+                    className="block w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors text-center disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Get Yearly Access
-                  </a>
+                    {loading === 'yearly' ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Loading...
+                      </span>
+                    ) : (
+                      'Get Yearly Access'
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
 
             <p className="text-center text-sm text-gray-500 mt-6">
-              Secure payment powered by Stripe
+              Secure payment powered by Stripe • Promo codes accepted at checkout
             </p>
           </div>
         </section>
@@ -152,7 +201,7 @@ export default function SubscribePage() {
               Chapter 1: Optical Fundamentals is completely free. Try it first!
             </p>
             <Link
-              href="/learn/chapter/optical-fundamentals"
+              href="/learn/chapter/introduction-to-opticianry"
               className="inline-flex items-center gap-2 bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
             >
               <BookOpen className="w-5 h-5" />
@@ -236,6 +285,16 @@ export default function SubscribePage() {
 
               <div className="border-b border-gray-200 pb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Do you accept promo codes?
+                </h3>
+                <p className="text-gray-600">
+                  Yes! If you have a promo code, you can enter it at checkout to receive your discount.
+                  Promo codes are applied on the Stripe payment page.
+                </p>
+              </div>
+
+              <div className="border-b border-gray-200 pb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   Is this content approved for ABO/NCLE prep?
                 </h3>
                 <p className="text-gray-600">
@@ -278,18 +337,34 @@ export default function SubscribePage() {
               Join thousands of opticians worldwide preparing for their certification exams.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href={STRIPE_YEARLY_LINK}
-                className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
+              <button
+                onClick={() => handleSubscribe('yearly')}
+                disabled={loading !== null}
+                className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors disabled:opacity-50"
               >
-                Get Yearly Access - $79/year
-              </a>
-              <a
-                href={STRIPE_MONTHLY_LINK}
-                className="inline-flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-400 transition-colors"
+                {loading === 'yearly' ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Loading...
+                  </>
+                ) : (
+                  'Get Yearly Access - $79/year'
+                )}
+              </button>
+              <button
+                onClick={() => handleSubscribe('monthly')}
+                disabled={loading !== null}
+                className="inline-flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-400 transition-colors disabled:opacity-50"
               >
-                Or $9.95/month
-              </a>
+                {loading === 'monthly' ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Loading...
+                  </>
+                ) : (
+                  'Or $9.95/month'
+                )}
+              </button>
             </div>
           </div>
         </section>
