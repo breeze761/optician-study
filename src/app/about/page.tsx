@@ -5,8 +5,8 @@ import { BookOpen, Award, Globe, Users, Target, Heart } from 'lucide-react'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'About OpticianStudy | Our Mission & Story',
-  description: 'OpticianStudy provides comprehensive online optician education for ABO and NCLE exam preparation. Learn about our mission to make quality optical education accessible worldwide.',
+  title: 'About OpticianStudy | Our Mission',
+  description: 'OpticianStudy provides online optician education for ABO and NCLE exam prep. Quality optical education accessible worldwide.',
   keywords: 'about OpticianStudy, optician education, optical training, ABO NCLE prep, optician certification course, online optician school',
   alternates: {
     canonical: '/about',

@@ -5,8 +5,8 @@ import Footer from '@/components/layout/Footer'
 import { Calendar, Clock, CheckCircle, BookOpen, Eye, AlertTriangle, Lightbulb } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'NCLE Study Guide 2025: Everything You Need to Know',
-  description: 'Complete NCLE exam study guide covering contact lens fitting, materials, care systems, troubleshooting, and practice questions. Pass your NCLE certification.',
+  title: 'NCLE Study Guide 2025 | Contact Lens Exam Prep',
+  description: 'NCLE exam study guide covering contact lens fitting, materials, care systems, troubleshooting, and practice questions.',
   keywords: 'NCLE study guide, NCLE exam topics, NCLE practice questions, contact lens certification, NCLE test prep, contact lens exam',
   alternates: {
     canonical: '/blog/ncle-study-guide',

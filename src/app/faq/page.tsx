@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import FAQPage from '@/components/pages/FAQPage'
 
 export const metadata: Metadata = {
-  title: 'Optician FAQ | Common Questions & Answers for Opticians',
-  description: 'Get answers to common optician questions about prescription reading, lensometry, keratometry, frame fitting, troubleshooting, and contact lenses. Expert guidance for ABO and NCLE exam preparation.',
+  title: 'Optician FAQ | Common Questions & Answers',
+  description: 'Answers to common optician questions: prescription reading, lensometry, keratometry, frame fitting, and contact lenses.',
   keywords: 'optician FAQ, prescription reading, lensometer, keratometer, frame fitting, optician troubleshooting, contact lens fitting, ABO exam questions, NCLE exam questions',
   alternates: {
     canonical: '/faq',

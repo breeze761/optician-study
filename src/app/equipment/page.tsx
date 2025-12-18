@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { Microscope, Target, ArrowRight, CheckCircle, BookOpen } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Optical Equipment Training | Lensometer, Keratometer, Slit Lamp Guide',
-  description: 'Master essential optical equipment for ABO and NCLE certification exams. Learn lensometer, keratometer, slit lamp, phoropter, trial frame, and visual acuity testing with step-by-step guides.',
+  title: 'Optical Equipment Training | Lensometer & More',
+  description: 'Master optical equipment for ABO and NCLE exams. Lensometer, keratometer, slit lamp, phoropter, and visual acuity guides.',
   keywords: 'optical equipment training, lensometer training, keratometer tutorial, slit lamp guide, phoropter instructions, ABO exam equipment, NCLE exam equipment, optician equipment',
   alternates: {
     canonical: '/equipment',

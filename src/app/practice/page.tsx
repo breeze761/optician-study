@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import PracticePage from '@/components/pages/PracticePage'
 
 export const metadata: Metadata = {
-  title: 'Calculation Practice | Optical Math Problems for ABO Exam',
-  description: 'Practice essential optical calculations for the ABO exam: transposition, vertex distance, Prentice\'s Rule, decentration, and more. Interactive problems with instant feedback.',
+  title: 'Optical Calculation Practice | ABO Exam Math',
+  description: 'Practice optical calculations for the ABO exam: transposition, vertex distance, Prentice Rule, and more. Interactive problems with feedback.',
   keywords: 'optical calculation practice, ABO exam math, transposition practice, vertex distance calculator, Prentice Rule problems, optician calculation, optical formulas',
   alternates: {
     canonical: '/practice',

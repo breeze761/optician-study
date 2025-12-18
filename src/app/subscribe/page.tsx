@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import SubscribePage from '@/components/pages/SubscribePage'
 
 export const metadata: Metadata = {
-  title: 'Subscribe | OpticianStudy - ABO & NCLE Exam Prep Pricing',
-  description: 'Get full access to OpticianStudy\'s comprehensive ABO and NCLE exam preparation course. 52 chapters, 325+ lessons, 500+ practice questions. Monthly and yearly plans available.',
+  title: 'Pricing & Plans | OpticianStudy Subscription',
+  description: 'Get full access to ABO and NCLE exam prep. 52 chapters, 325+ lessons, 500+ practice questions. Monthly $9.95 or yearly $79.',
   keywords: 'OpticianStudy pricing, ABO exam course, NCLE exam course, optician training subscription, optician certification cost, online optician course',
   alternates: {
     canonical: '/subscribe',

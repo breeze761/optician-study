@@ -5,8 +5,8 @@ import Footer from '@/components/layout/Footer'
 import { Calendar, Clock, CheckCircle, GraduationCap, Briefcase, DollarSign, MapPin, Award } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'How to Become a Licensed Optician: Step-by-Step Career Guide 2025',
-  description: 'Complete guide to becoming a licensed optician. Learn about education requirements, ABO & NCLE certification, state licensing, salary expectations, and career paths.',
+  title: 'How to Become a Licensed Optician | Career Guide',
+  description: 'Guide to becoming a licensed optician. Education requirements, ABO & NCLE certification, state licensing, and salary info.',
   keywords: 'how to become an optician, optician career, optician license, optician certification, optician salary, optician training, optician requirements',
   alternates: {
     canonical: '/blog/how-to-become-licensed-optician',

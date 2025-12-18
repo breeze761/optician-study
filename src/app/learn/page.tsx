@@ -6,8 +6,8 @@ import { chapters, curriculumOutline } from '@/data/chapters'
 import { Lock, Play } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Optician Course Curriculum | ABO & NCLE Exam Prep Lessons',
-  description: 'Browse our complete optician training curriculum with 52 chapters and 325+ lessons covering everything for ABO and NCLE certification exams. Start with a free chapter today.',
+  title: 'Optician Course Curriculum | 52 Chapters',
+  description: 'Browse our optician training curriculum with 52 chapters and 325+ lessons for ABO and NCLE exams. Start free today.',
   keywords: 'optician course, ABO exam lessons, NCLE exam curriculum, optician training chapters, optical education, optician certification course',
   alternates: {
     canonical: '/learn',

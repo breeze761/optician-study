@@ -6,8 +6,8 @@ import { Calendar, Clock, ArrowRight, BookOpen, CheckCircle, Eye, Award } from '
 import { getNCLEPosts, getPostsByTag } from '@/data/blog-posts'
 
 export const metadata: Metadata = {
-  title: 'NCLE Exam Prep: Complete Guide to Contact Lens Certification',
-  description: 'Everything you need to pass the NCLE (National Contact Lens Examiners) exam. Study guides, fitting procedures, practice questions, and certification strategies.',
+  title: 'NCLE Exam Prep | Contact Lens Certification Guide',
+  description: 'Pass the NCLE exam with study guides, fitting procedures, practice questions, and certification strategies.',
   keywords: 'NCLE exam prep, NCLE certification, NCLE study guide, NCLE practice test, contact lens certification, National Contact Lens Examiners',
   alternates: {
     canonical: '/ncle-exam-prep',

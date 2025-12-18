@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import HomePage from '@/components/pages/HomePage'
 
 export const metadata: Metadata = {
-  title: 'OpticianStudy - ABO & NCLE Exam Prep | Become a Certified Optician',
-  description: 'Master the ABO and NCLE certification exams with our comprehensive, self-paced optician training program. 52 chapters, 325+ lessons, 500+ practice questions. Start free today.',
+  title: 'OpticianStudy - ABO & NCLE Exam Prep for Opticians',
+  description: 'Pass the ABO and NCLE exams with our self-paced optician training. 52 chapters, 325+ lessons, 500+ practice questions.',
   keywords: 'optician training, ABO exam prep, NCLE exam prep, optician certification, optician course, become an optician, optical education, optician study guide',
   alternates: {
     canonical: '/',
