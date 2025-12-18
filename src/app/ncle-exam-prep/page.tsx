@@ -7,7 +7,7 @@ import { getNCLEPosts, getPostsByTag } from '@/data/blog-posts'
 
 export const metadata: Metadata = {
   title: 'NCLE Exam Prep | Contact Lens Certification',
-  description: 'Pass the NCLE exam with study guides, fitting procedures, practice questions, and proven certification strategies.',
+  description: 'Pass the NCLE exam with comprehensive study guides, fitting procedures, practice questions, and proven certification strategies.',
   keywords: 'NCLE exam prep, NCLE certification, NCLE study guide, NCLE practice test, contact lens certification, National Contact Lens Examiners',
   alternates: {
     canonical: '/ncle-exam-prep',
