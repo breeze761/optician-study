@@ -5,8 +5,8 @@ import { Calculator, ArrowRight, Sparkles } from 'lucide-react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Free Optical Calculators | OpticianStudy Tools',
-  description: 'Optical calculators for opticians: transposition, reading glasses, computer glasses, vertex distance, prism, and more.',
+  title: 'Free Optical Calculators | Optician Tools',
+  description: 'Free optical calculators for opticians: transposition, reading glasses, computer glasses, vertex distance, prism, and lens thickness.',
   keywords: 'optical calculator, optician calculator, transposition calculator, reading glasses calculator, computer glasses calculator, vertex distance calculator, prism calculator, lens thickness calculator',
   alternates: {
     canonical: '/calculators',

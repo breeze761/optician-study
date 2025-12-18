@@ -6,7 +6,7 @@ import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import { getAllPosts } from '@/data/blog-posts'
 
 export const metadata: Metadata = {
-  title: 'Optician Blog | Study Guides & Career Tips',
+  title: 'Optician Blog | Study Guides & Tips',
   description: 'Expert guides on becoming a licensed optician, passing ABO & NCLE exams, study tips, and career advice. Free resources.',
   keywords: 'optician blog, ABO exam tips, NCLE study guide, how to become optician, optician career, optician certification, optician CE credits, optician study resources',
   alternates: {

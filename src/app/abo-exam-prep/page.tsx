@@ -6,7 +6,7 @@ import { Calendar, Clock, ArrowRight, BookOpen, CheckCircle, Calculator, Award }
 import { getABOPosts, getPostsByTag } from '@/data/blog-posts'
 
 export const metadata: Metadata = {
-  title: 'ABO Exam Prep | Pass Your Optician Certification',
+  title: 'ABO Exam Prep | Optician Certification',
   description: 'Pass the ABO exam with study guides, practice questions, exam tips, and proven strategies. American Board of Opticianry prep.',
   keywords: 'ABO exam prep, ABO certification, ABO study guide, ABO practice test, optician exam, American Board of Opticianry',
   alternates: {

@@ -6,8 +6,8 @@ import { Clock, ArrowRight, BookOpen, GraduationCap, Briefcase, DollarSign, MapP
 import { getCareerPosts, getPostsByTag } from '@/data/blog-posts'
 
 export const metadata: Metadata = {
-  title: 'Optician Career Guide | Salary & Requirements',
-  description: 'Start your optician career. Education paths, certification requirements, salary expectations, and job outlook.',
+  title: 'Optician Career Guide | Salary & Jobs',
+  description: 'Start your optician career. Education paths, certification requirements, salary expectations, job outlook, and advancement tips.',
   keywords: 'optician career, how to become optician, optician salary, optician education, optician job, optician licensing',
   alternates: {
     canonical: '/optician-career-guide',
