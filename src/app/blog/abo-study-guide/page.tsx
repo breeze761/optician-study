@@ -5,7 +5,7 @@ import Footer from '@/components/layout/Footer'
 import { Calendar, Clock, CheckCircle, BookOpen, Calculator, AlertTriangle, Lightbulb } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'ABO Study Guide 2025 | Exam Topics & Prep',
+  title: 'ABO Study Guide 2025 | Topics & Prep',
   description: 'Complete ABO exam study guide covering all test topics. Includes optics formulas, lens types, frame materials, and practice questions.',
   keywords: 'ABO study guide, ABO exam topics, ABO practice questions, ABO test prep, optician study guide, ABO certification guide',
   alternates: {
