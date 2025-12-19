@@ -1,0 +1,13 @@
+# Robots.txt for OpticianStudy
+# https://www.opticianstudy.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.opticianstudy.com/sitemap.xml
+
+# Disallow admin/auth pages from indexing
+Disallow: /api/
+Disallow: /auth/
+Disallow: /dashboard/

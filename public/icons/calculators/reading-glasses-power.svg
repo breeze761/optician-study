@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Reading Glasses Power Calculator icon">
+  <defs>
+    <style>
+      .b{fill:none;stroke:#2563EB;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
+      .g{fill:none;stroke:#64748B;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
+      .bf{fill:#2563EB;stroke:none;opacity:.10;}
+      .gf{fill:#64748B;stroke:none;opacity:.10;}
+    </style>
+  </defs>
+
+  <path d="M22 44c14-10 30-10 44 0v52c-14-10-30-10-44 0V44z" class="g"/>
+  <path d="M62 44c14-10 30-10 44 0v52c-14-10-30-10-44 0V44z" class="g"/>
+  <path d="M40 78c6-6 16-6 22 0" class="b"/>
+  <path d="M38 78c-8 0-12 6-12 12" class="b"/>
+  <path d="M64 78c8 0 12 6 12 12" class="b"/>
+  <path d="M26 104h76" class="b"/>
+  <path d="M34 104v-8M46 104v-6M58 104v-8M70 104v-6M82 104v-8M94 104v-6" class="b"/>
+
+</svg>

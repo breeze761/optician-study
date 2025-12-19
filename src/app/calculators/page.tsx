@@ -1,6 +1,7 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Calculator, ArrowRight, Sparkles } from 'lucide-react'
 import { Metadata } from 'next'
 
@@ -35,7 +36,7 @@ const calculators = [
     id: 'transposition',
     title: 'Rx Transposition Calculator',
     description: 'Instantly convert prescriptions between plus and minus cylinder formats. Essential for every optician.',
-    icon: '🔄',
+    icon: '/icons/calculators/rx-transposition.svg',
     features: ['Plus to minus cylinder', 'Minus to plus cylinder', 'Step-by-step breakdown', 'Verify your work'],
     popular: true
   },
@@ -43,7 +44,7 @@ const calculators = [
     id: 'reading-glasses',
     title: 'Reading Glasses Power Calculator',
     description: 'Calculate the right reading add power based on age, working distance, and existing prescription.',
-    icon: '📖',
+    icon: '/icons/calculators/reading-glasses-power.svg',
     features: ['Age-based recommendations', 'Custom working distance', 'With/without distance Rx', 'Progressive vs single vision'],
     popular: true
   },
@@ -51,7 +52,7 @@ const calculators = [
     id: 'computer-glasses',
     title: 'Computer Glasses Calculator',
     description: 'Convert reading add to intermediate power for computer use. Calculate the ideal add for any screen distance.',
-    icon: '💻',
+    icon: '/icons/calculators/computer-glasses.svg',
     features: ['Screen distance optimization', 'Occupational lens calculation', 'Multiple monitor setups', 'Ergonomic recommendations'],
     popular: true
   },
@@ -59,7 +60,7 @@ const calculators = [
     id: 'vertex-distance',
     title: 'Vertex Distance Compensation',
     description: 'Compensate high prescriptions for changes in vertex distance. Critical for contact lens conversions.',
-    icon: '📏',
+    icon: '/icons/calculators/vertex-distance.svg',
     features: ['Spectacle to contact lens', 'Contact lens to spectacle', 'Any vertex distance', 'Cylinder compensation'],
     popular: true
   },
@@ -67,7 +68,7 @@ const calculators = [
     id: 'progressive-identifier',
     title: 'Progressive Lens Identifier',
     description: 'Identify progressive lens brands and designs using manufacturer engravings. Decode the hidden markings.',
-    icon: '🔬',
+    icon: '/icons/calculators/progressive-lens-identifier.svg',
     features: ['Brand identification', 'Engraving decoder', 'Lens design lookup', 'Addition verification'],
     popular: true
   },
@@ -75,7 +76,7 @@ const calculators = [
     id: 'layout-chart',
     title: 'Layout Chart Generator',
     description: 'Generate professional lens layout charts for the lab. Visualize optical centers, seg heights, and more.',
-    icon: '📋',
+    icon: '/icons/calculators/layout-chart-generator.svg',
     features: ['Visual frame layout', 'Measurement verification', 'Print-ready charts', 'Order accuracy'],
     popular: false
   },
@@ -83,7 +84,7 @@ const calculators = [
     id: 'prism',
     title: 'Prism Calculator (Prentice Rule)',
     description: 'Calculate induced prism from decentration or required decentration for prescribed prism.',
-    icon: '🔺',
+    icon: '/icons/calculators/prism-calculator.svg',
     features: ['Prism from decentration', 'Decentration for prism', 'Slab-off calculations', 'Vertical imbalance'],
     popular: false
   },
@@ -91,7 +92,7 @@ const calculators = [
     id: 'lens-thickness',
     title: 'Lens Thickness Estimator',
     description: 'Estimate edge and center thickness based on prescription, lens material, and frame size.',
-    icon: '📐',
+    icon: '/icons/calculators/lens-thickness-estimator.svg',
     features: ['Edge thickness (minus)', 'Center thickness (plus)', 'Material comparison', 'Frame size impact'],
     popular: false
   },
@@ -99,7 +100,7 @@ const calculators = [
     id: 'lens-cutout',
     title: 'Lens Cutout Calculator',
     description: 'Check if a lens will cut out before ordering. Enter frame, PD, and blank size to verify fit.',
-    icon: '✂️',
+    icon: '/icons/calculators/lens-cutout.svg',
     features: ['Minimum blank size', 'Cutout prediction', 'Decentration calculation', 'Frame compatibility'],
     popular: true
   },
@@ -107,7 +108,7 @@ const calculators = [
     id: 'magnification',
     title: 'Spectacle Magnification Calculator',
     description: 'Calculate the magnification or minification effect of spectacle lenses for aniseikonia concerns.',
-    icon: '🔍',
+    icon: '/icons/calculators/spectacle-magnification.svg',
     features: ['Power factor', 'Shape factor', 'Total magnification', 'Iseikonic lens design'],
     popular: false
   },
@@ -115,7 +116,7 @@ const calculators = [
     id: 'spherical-equivalent',
     title: 'Spherical Equivalent Calculator',
     description: 'Convert sphero-cylindrical prescriptions to spherical equivalent for contact lens fitting and comparisons.',
-    icon: '⚖️',
+    icon: '/icons/calculators/spherical-equivalent.svg',
     features: ['SE = Sphere + Cyl/2', 'Both eyes', 'CL fitting', 'Refractive surgery'],
     popular: false
   }
@@ -162,7 +163,9 @@ export default function CalculatorsPage() {
                   href={`/calculators/${calc.id}`}
                   className="bg-white rounded-xl border-2 border-emerald-200 p-6 hover:border-emerald-400 hover:shadow-lg transition-all group"
                 >
-                  <div className="text-4xl mb-3">{calc.icon}</div>
+                  <div className="w-12 h-12 mb-3">
+                    <Image src={calc.icon} alt={calc.title} width={48} height={48} className="w-full h-full" />
+                  </div>
                   <h3 className="font-bold text-gray-900 group-hover:text-emerald-600 transition-colors mb-2">
                     {calc.title}
                   </h3>
@@ -193,7 +196,9 @@ export default function CalculatorsPage() {
                   className="bg-gray-50 rounded-xl p-5 hover:bg-emerald-50 hover:border-emerald-200 border border-transparent transition-all group"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="text-3xl">{calc.icon}</div>
+                    <div className="w-10 h-10 flex-shrink-0">
+                      <Image src={calc.icon} alt={calc.title} width={40} height={40} className="w-full h-full" />
+                    </div>
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors">
                         {calc.title}

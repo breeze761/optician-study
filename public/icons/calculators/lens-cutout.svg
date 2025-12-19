@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Lens Cutout Calculator icon">
+  <defs>
+    <style>
+      .b{fill:none;stroke:#2563EB;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
+      .g{fill:none;stroke:#64748B;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
+      .bf{fill:#2563EB;stroke:none;opacity:.10;}
+      .gf{fill:#64748B;stroke:none;opacity:.10;}
+    </style>
+  </defs>
+
+  <path d="M32 52c0-10 8-18 18-18h28c10 0 18 8 18 18v24c0 10-8 18-18 18H50c-10 0-18-8-18-18V52z" class="g"/>
+  <circle cx="64" cy="64" r="24" class="b"/>
+  <path d="M52 66l8 8 18-20" class="b"/>
+
+</svg>

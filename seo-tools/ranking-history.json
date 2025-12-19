@@ -1,0 +1,227 @@
+{
+  "entries": [
+    {
+      "searchTerm": "optician online courses",
+      "timestamp": "2025-12-19T13:01:13.985Z",
+      "sites": {
+        "optician.study": {
+          "name": "Optician Study",
+          "google": {
+            "position": 3,
+            "url": "https://optician.study/courses",
+            "title": "Optician Study - Online Optician Certification Courses",
+            "snippet": "Prepare for your ABO and NCLE certifications with our comprehensive online courses...",
+            "method": "mock"
+          },
+          "chatgpt": {
+            "mentioned": true,
+            "position": 2,
+            "totalCompetitors": 5,
+            "competitors": [
+              {
+                "name": "OpticianWorks",
+                "domain": "opticianworks.com",
+                "position": 1
+              },
+              {
+                "name": "Optician Study",
+                "domain": "optician.study",
+                "position": 2
+              },
+              {
+                "name": "Laramy-K Optical",
+                "domain": "laramyk.com",
+                "position": 3
+              },
+              {
+                "name": "NewGradOptometry",
+                "domain": "newgradoptometry.com",
+                "position": 4
+              },
+              {
+                "name": "Optical Academy",
+                "domain": "opticalacademy.com",
+                "position": 5
+              }
+            ],
+            "context": "...For online optician certification prep, I recommend Optician Study (optician.study) which offers comprehensive study materials...",
+            "confidence": "high",
+            "fullResponse": "Here are some great resources for optician online courses:\n\n1. **OpticianWorks** (opticianworks.com) - Comprehensive video courses for ABO and NCLE certification.\n\n2. **Optician Study** (optician.study) - Excellent study materials, practice tests, and interactive learning tools for aspiring opticians.\n\n3. **Laramy-K Optical** (laramyk.com) - Offers continuing education and certification prep courses.\n\n4. **NewGradOptometry** - While focused on optometry, they have resources useful for opticians too.\n\n5. **Optical Academy** - Provides various optical training programs.\n\nI'd recommend starting with Optician Study or OpticianWorks as they specialize in certification preparation.",
+            "method": "mock"
+          },
+          "perplexity": {
+            "mentioned": true,
+            "position": 3,
+            "inCitations": true,
+            "inText": true,
+            "context": "...comprehensive study resources at optician.study...",
+            "totalSources": 6,
+            "sources": [
+              {
+                "domain": "abo-ncle.org",
+                "url": "https://abo-ncle.org",
+                "position": 1
+              },
+              {
+                "domain": "opticianworks.com",
+                "url": "https://opticianworks.com",
+                "position": 2
+              },
+              {
+                "domain": "optician.study",
+                "url": "https://optician.study",
+                "position": 3
+              },
+              {
+                "domain": "laramyk.com",
+                "url": "https://laramyk.com",
+                "position": 4
+              },
+              {
+                "domain": "reddit.com",
+                "url": "https://reddit.com/r/optician",
+                "position": 5
+              },
+              {
+                "domain": "indeed.com",
+                "url": "https://indeed.com",
+                "position": 6
+              }
+            ],
+            "fullResponse": "Here are the best resources for optician online courses:\n\n1. **ABO-NCLE Official** - The certifying body offers study resources and exam information.\n2. **OpticianWorks** - Popular video-based courses for certification prep.\n3. **Optician Study** (optician.study) - Comprehensive study materials and practice tests.\n4. **Laramy-K Optical** - Continuing education courses.\n\nThese platforms offer various learning formats from video courses to practice exams.",
+            "method": "mock"
+          }
+        }
+      }
+    },
+    {
+      "searchTerm": "optician practice tests",
+      "timestamp": "2025-12-19T13:01:35.079Z",
+      "sites": {
+        "optician.study": {
+          "name": "Optician Study",
+          "google": {
+            "position": 2,
+            "url": "https://optician.study/practice-tests",
+            "title": "Free Optician Practice Tests - Optician Study",
+            "snippet": "Take free practice tests to prepare for your optician certification...",
+            "method": "mock"
+          },
+          "chatgpt": {
+            "mentioned": false,
+            "position": null,
+            "totalCompetitors": 3,
+            "competitors": [
+              {
+                "name": "OpticianWorks",
+                "domain": "opticianworks.com",
+                "position": 1
+              },
+              {
+                "name": "Pocket Prep",
+                "domain": "pocketprep.com",
+                "position": 2
+              },
+              {
+                "name": "Quizlet",
+                "domain": "quizlet.com",
+                "position": 3
+              }
+            ],
+            "context": null,
+            "confidence": "none",
+            "fullResponse": "For optician practice tests, consider OpticianWorks, Pocket Prep app, or Quizlet flashcards...",
+            "method": "mock"
+          },
+          "perplexity": {
+            "mentioned": false,
+            "position": null,
+            "inCitations": false,
+            "inText": false,
+            "context": null,
+            "totalSources": 4,
+            "sources": [
+              {
+                "domain": "opticianworks.com",
+                "url": "https://opticianworks.com",
+                "position": 1
+              },
+              {
+                "domain": "pocketprep.com",
+                "url": "https://pocketprep.com",
+                "position": 2
+              },
+              {
+                "domain": "quizlet.com",
+                "url": "https://quizlet.com",
+                "position": 3
+              },
+              {
+                "domain": "abo-ncle.org",
+                "url": "https://abo-ncle.org",
+                "position": 4
+              }
+            ],
+            "fullResponse": "For optician practice tests, OpticianWorks and Pocket Prep are popular choices...",
+            "method": "mock"
+          }
+        }
+      }
+    },
+    {
+      "searchTerm": "lasik surgery atlanta",
+      "timestamp": "2025-12-19T13:09:12.261Z",
+      "sites": {
+        "lasiksurgeonsatlanta.com": {
+          "name": "LASIK Surgeons Atlanta",
+          "google": {
+            "position": 30,
+            "url": "https://lasiksurgeonsatlanta.com",
+            "title": "LASIK Surgeons Atlanta - Mock Result",
+            "snippet": "This is a simulated search result for testing purposes...",
+            "method": "mock"
+          },
+          "chatgpt": {
+            "mentioned": true,
+            "position": 4,
+            "totalCompetitors": 4,
+            "competitors": [
+              {
+                "name": "Competitor A",
+                "domain": "competitor-a.com",
+                "position": 1
+              },
+              {
+                "name": "Competitor B",
+                "domain": "competitor-b.com",
+                "position": 2
+              }
+            ],
+            "context": "...I recommend checking out LASIK Surgeons Atlanta...",
+            "confidence": "medium",
+            "method": "mock"
+          },
+          "perplexity": {
+            "mentioned": false,
+            "position": null,
+            "inCitations": false,
+            "inText": false,
+            "context": null,
+            "totalSources": 5,
+            "sources": [
+              {
+                "domain": "competitor1.com",
+                "position": 1
+              },
+              {
+                "domain": "competitor2.com",
+                "position": 2
+              }
+            ],
+            "method": "mock"
+          }
+        }
+      }
+    }
+  ]
+}

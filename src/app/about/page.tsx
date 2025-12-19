@@ -63,7 +63,9 @@ export default function AboutPage() {
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
                 OpticianStudy provides the structured curriculum and practice tools you need
-                to build confidence and excel in your optical career.
+                to build confidence and excel in your optical career. Our platform combines
+                expert-written content with interactive learning tools, including specialized
+                optical calculators and equipment guides that mirror real-world dispensary work.
               </p>
             </div>
           </div>
