@@ -141,7 +141,7 @@ export default function ReadingGlassesCalculator() {
             </Link>
 
             <div className="flex items-center gap-4 mb-4">
-              <span className="text-5xl">=���</span>
+              <img src="/icons/calculators/reading-glasses-power.svg" alt="Reading Glasses" className="w-16 h-16" />
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold">
                   Reading Glasses Calculator
@@ -271,7 +271,7 @@ export default function ReadingGlassesCalculator() {
                       <h3 className="font-medium text-amber-900 mb-2">Important Notes:</h3>
                       <ul className="space-y-1 text-sm text-amber-800">
                         {result.notes.map((note, i) => (
-                          <li key={i}>G�� {note}</li>
+                          <li key={i}>• {note}</li>
                         ))}
                       </ul>
                     </div>
@@ -311,7 +311,7 @@ export default function ReadingGlassesCalculator() {
             </div>
 
             <p className="text-center text-sm text-gray-500 mt-4">
-              These are typical starting points. Individual needs varyG��always confirm with an eye exam.
+              These are typical starting points. Individual needs vary - always confirm with an eye exam.
             </p>
           </div>
         </section>
@@ -356,17 +356,17 @@ export default function ReadingGlassesCalculator() {
             </h2>
             <div className="grid md:grid-cols-3 gap-4">
               <Link href="/calculators/computer-glasses" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=��+</div>
+                <img src="/icons/calculators/computer-glasses.svg" alt="Computer Glasses" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Computer Glasses</h3>
                 <p className="text-sm text-gray-500">Calculate intermediate power for screens</p>
               </Link>
               <Link href="/calculators/transposition" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=���</div>
+                <img src="/icons/calculators/rx-transposition.svg" alt="Transposition" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Transposition</h3>
                 <p className="text-sm text-gray-500">Convert plus/minus cylinder</p>
               </Link>
               <Link href="/calculators/vertex-distance" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=���</div>
+                <img src="/icons/calculators/vertex-distance.svg" alt="Vertex Distance" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Vertex Distance</h3>
                 <p className="text-sm text-gray-500">Compensate high Rx for vertex changes</p>
               </Link>

@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
+import {
+  notifyPaidSubscription,
+  notifySubscriptionCanceled,
+  notifyPaymentFailed
+} from '@/lib/notifications'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-11-17.clover',
@@ -111,6 +116,24 @@ async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
   }
 
   console.log(`Subscription created for user ${userId}`)
+
+  // Send notification for new paid subscription
+  const customerEmail = session.customer_email || session.customer_details?.email
+  const customerName = session.customer_details?.name
+  const priceId = subscription.items.data[0]?.price.id
+  const amount = subscription.items.data[0]?.price.unit_amount || 0
+  const interval = (subscription.items.data[0]?.price.recurring?.interval) || 'month'
+
+  if (customerEmail) {
+    await notifyPaidSubscription({
+      email: customerEmail,
+      name: customerName || undefined,
+      plan: priceId?.includes('yearly') ? 'Yearly' : 'Monthly',
+      amount: amount,
+      interval: interval,
+      stripeCustomerId: customerId
+    })
+  }
 }
 
 async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
@@ -151,6 +174,20 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
 }
 
 async function handleSubscriptionCanceled(subscription: Stripe.Subscription) {
+  // Get customer email before updating
+  let customerEmail: string | undefined
+  let customerName: string | undefined
+
+  try {
+    const customer = await stripe.customers.retrieve(subscription.customer as string) as Stripe.Customer
+    if (!customer.deleted) {
+      customerEmail = customer.email || undefined
+      customerName = customer.name || undefined
+    }
+  } catch (e) {
+    console.error('Could not fetch customer for cancellation notification:', e)
+  }
+
   const { error } = await supabaseAdmin
     .from('subscriptions')
     .update({
@@ -165,6 +202,14 @@ async function handleSubscriptionCanceled(subscription: Stripe.Subscription) {
   }
 
   console.log(`Subscription ${subscription.id} canceled`)
+
+  // Send cancellation notification
+  if (customerEmail) {
+    await notifySubscriptionCanceled({
+      email: customerEmail,
+      name: customerName,
+    })
+  }
 }
 
 async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
@@ -179,4 +224,19 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
 async function handlePaymentFailed(invoice: Stripe.Invoice) {
   // Log failed payment - subscription status will be updated via subscription.updated event
   console.log(`Payment failed for invoice ${invoice.id}`)
+
+  // Send notification for failed payment
+  const customerEmail = invoice.customer_email
+  const customerName = invoice.customer_name
+  const amount = invoice.amount_due || 0
+  const failureReason = (invoice as any).last_finalization_error?.message
+
+  if (customerEmail) {
+    await notifyPaymentFailed({
+      email: customerEmail,
+      name: customerName || undefined,
+      amount: amount,
+      failureReason: failureReason
+    })
+  }
 }

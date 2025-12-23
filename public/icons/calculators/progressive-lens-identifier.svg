@@ -1,17 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Progressive Lens Identifier icon">
   <defs>
+    
+<filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.18"/>
+</filter>
+
     <style>
-      .b{fill:none;stroke:#2563EB;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-      .g{fill:none;stroke:#64748B;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-      .bf{fill:#2563EB;stroke:none;opacity:.10;}
-      .gf{fill:#64748B;stroke:none;opacity:.10;}
+      .bg{fill:#F8FAFC;}
+      .a{fill:#EC4899;}
+      .a2{fill:#EC4899;opacity:.20;}
+      .w{fill:#ffffff;}
+      .t{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; font-weight:700; fill:#0f172a;}
     </style>
   </defs>
-
-  <path d="M34 36c10-10 50-10 60 0 10 10 10 46 0 56-10 10-50 10-60 0-10-10-10-46 0-56z" class="g"/>
-  <circle cx="52" cy="72" r="2.8" class="b"/>
-  <circle cx="76" cy="72" r="2.8" class="b"/>
-  <circle cx="88" cy="88" r="14" class="b"/>
-  <path d="M98 98l12 12" class="b"/>
+  <rect x="0" y="0" width="128" height="128" class="bg"/>
+  
+  <g filter="url(#ds)">
+    <path d="M30 36c12-12 56-12 68 0 12 12 12 44 0 56-12 12-56 12-68 0-12-12-12-44 0-56z" class="w"/>
+    <circle cx="52" cy="72" r="4" class="a"/>
+    <circle cx="76" cy="72" r="4" class="a"/>
+  </g>
+  <g filter="url(#ds)">
+    <circle cx="90" cy="88" r="16" class="a"/>
+    <circle cx="90" cy="88" r="10" class="w"/>
+    <rect x="100" y="100" width="18" height="8" rx="4" transform="rotate(45 100 100)" class="a"/>
+  </g>
 
 </svg>

@@ -29,8 +29,8 @@ export default function VertexDistanceCalculator() {
     const newVMeters = newV / 1000
 
     // Vertex distance compensation formula
-    // New Power = Original Power / (1 - (Original Power +� Change in Vertex Distance))
-    // Or using effective power: Feff = F / (1 - d +� F)
+    // New Power = Original Power / (1 - (Original Power * Change in Vertex Distance))
+    // Or using effective power: Feff = F / (1 - d * F)
 
     // First find effective power at original vertex
     const effectivePower = power / (1 - (origVMeters * power))
@@ -72,7 +72,7 @@ export default function VertexDistanceCalculator() {
     },
     {
       question: 'When does vertex distance matter?',
-      answer: 'Vertex distance compensation is clinically significant for powers greater than -�4.00D. For lower powers, the difference is usually negligible (less than 0.12D). High myopes and hyperopes need careful vertex distance consideration.'
+      answer: 'Vertex distance compensation is clinically significant for powers greater than 4.00D. For lower powers, the difference is usually negligible (less than 0.12D). High myopes and hyperopes need careful vertex distance consideration.'
     },
     {
       question: 'Why do contact lens powers differ from spectacle powers?',
@@ -80,11 +80,11 @@ export default function VertexDistanceCalculator() {
     },
     {
       question: 'What is the formula for vertex distance compensation?',
-      answer: 'The formula is: Compensated Power = F / (1 - (d +� F)), where F is the original power in diopters and d is the vertex distance change in meters. For converting from spectacles to contacts, d is negative (moving closer to eye).'
+      answer: 'The formula is: Compensated Power = F / (1 - (d * F)), where F is the original power in diopters and d is the vertex distance change in meters. For converting from spectacles to contacts, d is negative (moving closer to eye).'
     },
     {
       question: 'How do I convert spectacle Rx to contact lens Rx?',
-      answer: 'To convert from spectacles (typically 12mm vertex) to contacts (0mm vertex): 1) Use a negative vertex change, 2) For minus powers, the contact lens power will be less minus (e.g., -6.00 spectacles G�� -5.50 contacts), 3) For plus powers, the contact lens power will be more plus.'
+      answer: 'To convert from spectacles (typically 12mm vertex) to contacts (0mm vertex): 1) Use a negative vertex change, 2) For minus powers, the contact lens power will be less minus (e.g., -6.00 spectacles becomes -5.50 contacts), 3) For plus powers, the contact lens power will be more plus.'
     },
     {
       question: 'What if the refraction was done at a different vertex distance?',
@@ -96,7 +96,7 @@ export default function VertexDistanceCalculator() {
     },
     {
       question: 'What\'s the "4 diopter rule"?',
-      answer: 'As a general guideline, vertex distance compensation is clinically significant when the power exceeds -�4.00D. Below this threshold, the compensation is typically less than 0.12D and may not be noticeable to the patient.'
+      answer: 'As a general guideline, vertex distance compensation is clinically significant when the power exceeds 4.00D. Below this threshold, the compensation is typically less than 0.12D and may not be noticeable to the patient.'
     }
   ]
 
@@ -146,7 +146,7 @@ export default function VertexDistanceCalculator() {
                     <ul className="list-disc list-inside space-y-1 text-purple-800">
                       <li>Converting spectacle Rx to contact lens Rx (use 0mm for new vertex)</li>
                       <li>Frame changes with different vertex distances</li>
-                      <li>High prescriptions (-�4.00D or greater)</li>
+                      <li>High prescriptions (4.00D or greater)</li>
                     </ul>
                   </div>
                 </div>
@@ -237,24 +237,24 @@ export default function VertexDistanceCalculator() {
                         onClick={() => { setOriginalVertex('12'); setNewVertex('0'); }}
                         className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
                       >
-                        <span className="font-medium block">Spectacles G�� Contacts</span>
-                        <span className="text-gray-500">12mm G�� 0mm</span>
+                        <span className="font-medium block">Spectacles to Contacts</span>
+                        <span className="text-gray-500">12mm to 0mm</span>
                       </button>
                       <button
                         type="button"
                         onClick={() => { setOriginalVertex('0'); setNewVertex('12'); }}
                         className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
                       >
-                        <span className="font-medium block">Contacts G�� Spectacles</span>
-                        <span className="text-gray-500">0mm G�� 12mm</span>
+                        <span className="font-medium block">Contacts to Spectacles</span>
+                        <span className="text-gray-500">0mm to 12mm</span>
                       </button>
                       <button
                         type="button"
                         onClick={() => { setOriginalVertex('13.5'); setNewVertex('12'); }}
                         className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
                       >
-                        <span className="font-medium block">Phoropter G�� Frame</span>
-                        <span className="text-gray-500">13.5mm G�� 12mm</span>
+                        <span className="font-medium block">Phoropter to Frame</span>
+                        <span className="text-gray-500">13.5mm to 12mm</span>
                       </button>
                       <button
                         type="button"
@@ -262,7 +262,7 @@ export default function VertexDistanceCalculator() {
                         className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors text-left"
                       >
                         <span className="font-medium block">Frame Change</span>
-                        <span className="text-gray-500">12mm G�� 14mm</span>
+                        <span className="text-gray-500">12mm to 14mm</span>
                       </button>
                     </div>
                   </div>
@@ -306,7 +306,7 @@ export default function VertexDistanceCalculator() {
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600">Vertex Change:</span>
-                            <span className="font-medium">{explanation.origV}mm G�� {explanation.newV}mm ({explanation.vertexChange > 0 ? '+' : ''}{explanation.vertexChange}mm)</span>
+                            <span className="font-medium">{explanation.origV}mm to {explanation.newV}mm ({explanation.vertexChange > 0 ? '+' : ''}{explanation.vertexChange}mm)</span>
                           </div>
                           <div className="flex justify-between text-sm border-t border-gray-200 pt-3">
                             <span className="text-gray-600">Power Adjustment:</span>
@@ -329,7 +329,7 @@ export default function VertexDistanceCalculator() {
                           </button>
                           <div className="p-4 space-y-3 text-sm">
                             <div className="font-mono bg-purple-50 p-3 rounded">
-                              <p className="text-gray-600 mb-2">Formula: F' = F / (1 - d +� F)</p>
+                              <p className="text-gray-600 mb-2">Formula: F' = F / (1 - d * F)</p>
                               <p>where:</p>
                               <ul className="list-disc list-inside text-gray-700 ml-2">
                                 <li>F = original power ({explanation.power} D)</li>

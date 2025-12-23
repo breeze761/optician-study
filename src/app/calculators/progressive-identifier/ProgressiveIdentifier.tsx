@@ -95,7 +95,7 @@ export default function ProgressiveIdentifier() {
   const faqs = [
     {
       question: 'Where are progressive lens engravings located?',
-      answer: 'Progressive lens engravings are etched into the front surface of the lens in the temporal and nasal areas, approximately 3-4mm above the reading zone (near the 180-� line). They are subtle and require good lighting and magnification to see. Look at the lens at an angle with light reflecting off the surface.'
+      answer: 'Progressive lens engravings are etched into the front surface of the lens in the temporal and nasal areas, approximately 3-4mm above the reading zone (near the 180 degree line). They are subtle and require good lighting and magnification to see. Look at the lens at an angle with light reflecting off the surface.'
     },
     {
       question: 'What do the engravings tell you?',
@@ -172,7 +172,7 @@ export default function ProgressiveIdentifier() {
                     <p className="font-medium mb-1">How to use this tool:</p>
                     <ol className="list-decimal list-inside space-y-1 text-indigo-800">
                       <li>Hold the lens at an angle under good lighting</li>
-                      <li>Look for subtle engravings in the temporal and nasal areas (near the 180-� line)</li>
+                      <li>Look for subtle engravings in the temporal and nasal areas (near the 180 degree line)</li>
                       <li>Search for the engraving code below to identify the lens</li>
                     </ol>
                   </div>

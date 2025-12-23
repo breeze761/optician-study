@@ -1,19 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Reading Glasses Power Calculator icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Reading Glasses Power icon">
   <defs>
+    
+<filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.18"/>
+</filter>
+
     <style>
-      .b{fill:none;stroke:#2563EB;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-      .g{fill:none;stroke:#64748B;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-      .bf{fill:#2563EB;stroke:none;opacity:.10;}
-      .gf{fill:#64748B;stroke:none;opacity:.10;}
+      .bg{fill:#F8FAFC;}
+      .a{fill:#22C55E;}
+      .a2{fill:#22C55E;opacity:.20;}
+      .w{fill:#ffffff;}
+      .t{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; font-weight:700; fill:#0f172a;}
     </style>
   </defs>
-
-  <path d="M22 44c14-10 30-10 44 0v52c-14-10-30-10-44 0V44z" class="g"/>
-  <path d="M62 44c14-10 30-10 44 0v52c-14-10-30-10-44 0V44z" class="g"/>
-  <path d="M40 78c6-6 16-6 22 0" class="b"/>
-  <path d="M38 78c-8 0-12 6-12 12" class="b"/>
-  <path d="M64 78c8 0 12 6 12 12" class="b"/>
-  <path d="M26 104h76" class="b"/>
-  <path d="M34 104v-8M46 104v-6M58 104v-8M70 104v-6M82 104v-8M94 104v-6" class="b"/>
+  <rect x="0" y="0" width="128" height="128" class="bg"/>
+  
+  <g filter="url(#ds)">
+    <path d="M20 36c14-10 30-10 44 0v56c-14-10-30-10-44 0V36z" class="w"/>
+    <path d="M64 36c14-10 30-10 44 0v56c-14-10-30-10-44 0V36z" class="w"/>
+    <path d="M22 40c12-8 26-8 40 0v6c-14-8-28-8-40 0v-6z" class="a2"/>
+  </g>
+  <g filter="url(#ds)">
+    <circle cx="48" cy="70" r="14" class="a"/>
+    <circle cx="80" cy="70" r="14" class="a"/>
+    <rect x="55" y="66" width="18" height="8" rx="4" class="a"/>
+  </g>
+  <g filter="url(#ds)">
+    <rect x="26" y="98" width="76" height="10" rx="5" class="w"/>
+    <rect x="30" y="102" width="8" height="2" rx="1" class="a"/>
+    <rect x="42" y="102" width="6" height="2" rx="1" class="a"/>
+    <rect x="54" y="102" width="8" height="2" rx="1" class="a"/>
+    <rect x="66" y="102" width="6" height="2" rx="1" class="a"/>
+    <rect x="78" y="102" width="8" height="2" rx="1" class="a"/>
+    <rect x="90" y="102" width="6" height="2" rx="1" class="a"/>
+  </g>
 
 </svg>

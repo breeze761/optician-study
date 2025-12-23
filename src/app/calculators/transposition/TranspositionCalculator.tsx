@@ -60,7 +60,7 @@ export default function TranspositionCalculator() {
   const faqs = [
     {
       question: 'What is prescription transposition?',
-      answer: 'Transposition is the process of converting an eyeglass prescription from plus cylinder format to minus cylinder format, or vice versa. Both formats describe the exact same prescriptionG��they\'re just written differently. The optical power and correction are identical.'
+      answer: 'Transposition is the process of converting an eyeglass prescription from plus cylinder format to minus cylinder format, or vice versa. Both formats describe the exact same prescription - they\'re just written differently. The optical power and correction are identical.'
     },
     {
       question: 'Why do I need to transpose prescriptions?',
@@ -68,7 +68,7 @@ export default function TranspositionCalculator() {
     },
     {
       question: 'What is the transposition formula?',
-      answer: 'The transposition formula has three steps: 1) Add the sphere and cylinder algebraically to get the new sphere. 2) Change the sign of the cylinder (+ becomes -, or - becomes +). 3) Change the axis by 90-� (add 90 if under 90, subtract 90 if over 90, keeping between 1-180).'
+      answer: 'The transposition formula has three steps: 1) Add the sphere and cylinder algebraically to get the new sphere. 2) Change the sign of the cylinder (+ becomes -, or - becomes +). 3) Change the axis by 90 degrees (add 90 if under 90, subtract 90 if over 90, keeping between 1-180).'
     },
     {
       question: 'Does transposition change the prescription power?',
@@ -109,7 +109,7 @@ export default function TranspositionCalculator() {
             </Link>
 
             <div className="flex items-center gap-4 mb-4">
-              <span className="text-5xl">=���</span>
+              <span className="text-5xl">&#8652;</span>
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold">
                   Rx Transposition Calculator
@@ -218,7 +218,7 @@ export default function TranspositionCalculator() {
                       </div>
                       <div>
                         <div className="text-sm text-gray-500 mb-1">Axis</div>
-                        <div className="text-2xl font-bold text-gray-900">{result.axis}-�</div>
+                        <div className="text-2xl font-bold text-gray-900">{result.axis}&deg;</div>
                       </div>
                     </div>
                   </div>
@@ -241,8 +241,8 @@ export default function TranspositionCalculator() {
                         <p className="mt-3"><strong>Step 2:</strong> New Cylinder = Opposite sign of old cylinder</p>
                         <p className="pl-4 text-gray-600">= {parseFloat(cylinder) > 0 ? '-' : '+'}{Math.abs(parseFloat(cylinder)).toFixed(2)}</p>
 
-                        <p className="mt-3"><strong>Step 3:</strong> New Axis = Old Axis -� 90-�</p>
-                        <p className="pl-4 text-gray-600">= {axis}-� {parseInt(axis) <= 90 ? '+' : '-'} 90-� = {result.axis}-�</p>
+                        <p className="mt-3"><strong>Step 3:</strong> New Axis = Old Axis &plusmn; 90&deg;</p>
+                        <p className="pl-4 text-gray-600">= {axis}&deg; {parseInt(axis) <= 90 ? '+' : '-'} 90&deg; = {result.axis}&deg;</p>
                       </div>
                     </div>
                   )}
@@ -259,14 +259,14 @@ export default function TranspositionCalculator() {
                   className="text-left p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors"
                 >
                   <div className="font-mono text-sm">-2.00 +1.00 x 090</div>
-                  <div className="text-xs text-gray-500 mt-1">Plus cylinder G�� Minus cylinder</div>
+                  <div className="text-xs text-gray-500 mt-1">Plus cylinder &rarr; Minus cylinder</div>
                 </button>
                 <button
                   onClick={() => { setSphere('-3.50'); setCylinder('-0.75'); setAxis('180'); setResult(null); }}
                   className="text-left p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors"
                 >
                   <div className="font-mono text-sm">-3.50 -0.75 x 180</div>
-                  <div className="text-xs text-gray-500 mt-1">Minus cylinder G�� Plus cylinder</div>
+                  <div className="text-xs text-gray-500 mt-1">Minus cylinder &rarr; Plus cylinder</div>
                 </button>
                 <button
                   onClick={() => { setSphere('+1.25'); setCylinder('-2.00'); setAxis('45'); setResult(null); }}
@@ -297,7 +297,7 @@ export default function TranspositionCalculator() {
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8">
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <div className="text-4xl mb-3">1n+�G��</div>
+                  <div className="text-4xl mb-3 font-bold text-blue-600">1</div>
                   <h3 className="font-semibold text-gray-900 mb-2">Add Sphere + Cylinder</h3>
                   <p className="text-sm text-gray-600">
                     Algebraically add the original sphere and cylinder to get the new sphere.
@@ -308,7 +308,7 @@ export default function TranspositionCalculator() {
                 </div>
 
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <div className="text-4xl mb-3">2n+�G��</div>
+                  <div className="text-4xl mb-3 font-bold text-blue-600">2</div>
                   <h3 className="font-semibold text-gray-900 mb-2">Flip Cylinder Sign</h3>
                   <p className="text-sm text-gray-600">
                     Change the cylinder from plus to minus, or from minus to plus.
@@ -319,13 +319,13 @@ export default function TranspositionCalculator() {
                 </div>
 
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <div className="text-4xl mb-3">3n+�G��</div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Rotate Axis 90-�</h3>
+                  <div className="text-4xl mb-3 font-bold text-blue-600">3</div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Rotate Axis 90&deg;</h3>
                   <p className="text-sm text-gray-600">
-                    Add or subtract 90-� from the axis (keep between 1-� and 180-�).
+                    Add or subtract 90&deg; from the axis (keep between 1&deg; and 180&deg;).
                   </p>
                   <div className="mt-4 font-mono text-sm bg-gray-100 rounded p-2">
-                    New AXIS = AXIS -� 90-�
+                    New AXIS = AXIS &plusmn; 90&deg;
                   </div>
                 </div>
               </div>
@@ -373,17 +373,17 @@ export default function TranspositionCalculator() {
             </h2>
             <div className="grid md:grid-cols-3 gap-4">
               <Link href="/calculators/vertex-distance" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=���</div>
+                <img src="/icons/calculators/vertex-distance.svg" alt="Vertex Distance" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Vertex Distance</h3>
                 <p className="text-sm text-gray-500">Compensate high Rx for vertex changes</p>
               </Link>
               <Link href="/calculators/reading-glasses" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=���</div>
+                <img src="/icons/calculators/reading-glasses-power.svg" alt="Reading Glasses" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Reading Glasses</h3>
                 <p className="text-sm text-gray-500">Calculate reading add power</p>
               </Link>
               <Link href="/calculators/lens-cutout" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">G��n+�</div>
+                <img src="/icons/calculators/lens-cutout.svg" alt="Lens Cutout" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Lens Cutout</h3>
                 <p className="text-sm text-gray-500">Check if a lens will cut out</p>
               </Link>

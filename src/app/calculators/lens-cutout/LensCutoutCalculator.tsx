@@ -61,7 +61,7 @@ export default function LensCutoutCalculator() {
     // Decentration per lens (assumes equal distribution)
     const decPerLens = totalDec / 2
 
-    // Minimum blank size formula: ED + (2 +� decentration per lens) + safety margin
+    // Minimum blank size formula: ED + (2 * decentration per lens) + safety margin
     // Safety margin typically 2-4mm
     const safetyMargin = 2
     const minBlankSize = Math.ceil(ED + Math.abs(decPerLens * 2) + safetyMargin)
@@ -152,7 +152,7 @@ export default function LensCutoutCalculator() {
     },
     {
       question: 'How do I calculate minimum blank size?',
-      answer: 'The formula is: Minimum Blank = Effective Diameter (ED) + (2 +� Decentration) + Safety Margin. The ED is the longest diagonal of the frame shape. Decentration is half the difference between Frame PD and Patient PD. A 2-4mm safety margin accounts for edging and mounting.'
+      answer: 'The formula is: Minimum Blank = Effective Diameter (ED) + (2 x Decentration) + Safety Margin. The ED is the longest diagonal of the frame shape. Decentration is half the difference between Frame PD and Patient PD. A 2-4mm safety margin accounts for edging and mounting.'
     },
     {
       question: 'What is decentration and why does it matter?',
@@ -164,7 +164,7 @@ export default function LensCutoutCalculator() {
     },
     {
       question: 'What is Effective Diameter (ED)?',
-      answer: 'The Effective Diameter is the longest diagonal measurement across the frame\'s lens opening. For rectangular frames, it\'s approximately G��(A-� + B-�). Some frame manufacturers provide the ED, which is more accurate for irregular shapes. It determines the minimum lens size needed.'
+      answer: 'The Effective Diameter is the longest diagonal measurement across the frame\'s lens opening. For rectangular frames, it\'s approximately the square root of (A squared + B squared). Some frame manufacturers provide the ED, which is more accurate for irregular shapes. It determines the minimum lens size needed.'
     },
     {
       question: 'Why do minus lenses cut out more easily?',
@@ -172,7 +172,7 @@ export default function LensCutoutCalculator() {
     },
     {
       question: 'How does cylinder axis affect cutout?',
-      answer: 'Cylinder power adds thickness in one direction. A cylinder at 180-� adds thickness top and bottom. A cylinder at 90-� adds thickness nasally and temporally. When the thick axis aligns with the direction of decentration, you may need a larger blank to accommodate both the decentration and cylinder thickness.'
+      answer: 'Cylinder power adds thickness in one direction. A cylinder at 180 degrees adds thickness top and bottom. A cylinder at 90 degrees adds thickness nasally and temporally. When the thick axis aligns with the direction of decentration, you may need a larger blank to accommodate both the decentration and cylinder thickness.'
     },
     {
       question: 'What can I do if the lens will cut out?',
@@ -197,7 +197,7 @@ export default function LensCutoutCalculator() {
             </Link>
 
             <div className="flex items-center gap-4 mb-4">
-              <span className="text-5xl">G��n+�</span>
+              <img src="/icons/calculators/lens-cutout.svg" alt="Lens Cutout" className="w-16 h-16" />
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold">
                   Lens Cutout Calculator
@@ -454,7 +454,7 @@ export default function LensCutoutCalculator() {
                               : 'bg-red-100 text-red-800 border border-red-200'
                           }`}
                         >
-                          {size}mm {willWork ? 'G��' : 'G��'}
+                          {size}mm {willWork ? '✓' : '✗'}
                         </div>
                       ))}
                     </div>
@@ -469,7 +469,7 @@ export default function LensCutoutCalculator() {
                       </h3>
                       <ul className="space-y-1 text-sm text-amber-800">
                         {result.warnings.map((w, i) => (
-                          <li key={i}>G�� {w}</li>
+                          <li key={i}>• {w}</li>
                         ))}
                       </ul>
                     </div>
@@ -481,7 +481,7 @@ export default function LensCutoutCalculator() {
                       <h3 className="font-semibold text-blue-900 mb-2">Recommendations</h3>
                       <ul className="space-y-1 text-sm text-blue-800">
                         {result.recommendations.map((r, i) => (
-                          <li key={i}>G�� {r}</li>
+                          <li key={i}>• {r}</li>
                         ))}
                       </ul>
                     </div>
@@ -523,7 +523,7 @@ export default function LensCutoutCalculator() {
               <div className="bg-gray-50 rounded-xl p-6">
                 <h3 className="font-semibold text-gray-900 mb-3">Effective Diameter (ED)</h3>
                 <div className="font-mono bg-white rounded-lg p-4 text-center text-lg">
-                  ED G�� G��(A-� + B-�)
+                  ED &asymp; &radic;(A&sup2; + B&sup2;)
                 </div>
                 <p className="text-sm text-gray-600 mt-3">
                   The longest diagonal of the frame shape. Use manufacturer&apos;s ED if available.
@@ -583,17 +583,17 @@ export default function LensCutoutCalculator() {
             </h2>
             <div className="grid md:grid-cols-3 gap-4">
               <Link href="/calculators/transposition" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=���</div>
+                <img src="/icons/calculators/rx-transposition.svg" alt="Transposition" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Transposition</h3>
                 <p className="text-sm text-gray-500">Convert plus/minus cylinder</p>
               </Link>
               <Link href="/calculators/prism" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=���</div>
+                <img src="/icons/calculators/prism-calculator.svg" alt="Prism Calculator" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Prism Calculator</h3>
                 <p className="text-sm text-gray-500">Calculate induced prism from decentration</p>
               </Link>
               <Link href="/calculators/vertex-distance" className="bg-white rounded-xl p-4 hover:shadow-md transition-shadow">
-                <div className="text-2xl mb-2">=���</div>
+                <img src="/icons/calculators/vertex-distance.svg" alt="Vertex Distance" className="w-12 h-12 mb-2" />
                 <h3 className="font-medium text-gray-900">Vertex Distance</h3>
                 <p className="text-sm text-gray-500">Compensate high Rx for vertex changes</p>
               </Link>

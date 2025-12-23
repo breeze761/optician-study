@@ -1,15 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Lens Cutout Calculator icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Lens Cutout icon">
   <defs>
+    
+<filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.18"/>
+</filter>
+
     <style>
-      .b{fill:none;stroke:#2563EB;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-      .g{fill:none;stroke:#64748B;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-      .bf{fill:#2563EB;stroke:none;opacity:.10;}
-      .gf{fill:#64748B;stroke:none;opacity:.10;}
+      .bg{fill:#F8FAFC;}
+      .a{fill:#14B8A6;}
+      .a2{fill:#14B8A6;opacity:.20;}
+      .w{fill:#ffffff;}
+      .t{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; font-weight:700; fill:#0f172a;}
     </style>
   </defs>
-
-  <path d="M32 52c0-10 8-18 18-18h28c10 0 18 8 18 18v24c0 10-8 18-18 18H50c-10 0-18-8-18-18V52z" class="g"/>
-  <circle cx="64" cy="64" r="24" class="b"/>
-  <path d="M52 66l8 8 18-20" class="b"/>
+  <rect x="0" y="0" width="128" height="128" class="bg"/>
+  
+  <g filter="url(#ds)">
+    <circle cx="64" cy="60" r="34" class="w"/>
+    <circle cx="64" cy="60" r="34" class="a2"/>
+    <rect x="44" y="44" width="40" height="32" rx="8" class="a"/>
+    <rect x="52" y="50" width="24" height="20" rx="6" class="w" opacity=".85"/>
+    <path d="M46 90l10 10 26-30" fill="none" stroke="#14B8A6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 
 </svg>

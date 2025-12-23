@@ -31,7 +31,7 @@ export default function SignupPage() {
 
     try {
       const supabase = createClient()
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -45,6 +45,21 @@ export default function SignupPage() {
         setError(error.message)
       } else {
         setSuccess(true)
+        // Send signup notification to owner
+        try {
+          await fetch('/api/notify-signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              name,
+              userId: data.user?.id
+            })
+          })
+        } catch (notifyError) {
+          // Don't block signup if notification fails
+          console.error('Failed to send signup notification:', notifyError)
+        }
       }
     } catch (err) {
       setError('An unexpected error occurred')
